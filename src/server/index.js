@@ -15,8 +15,6 @@ const parsedArgs = minimist(process.argv, {
   },
 });
 
-const envMode = process.env.NODE_ENV;
-
 const server = new Server(process.env.PORT || parsedArgs['server-port']);
 
 server.listen();

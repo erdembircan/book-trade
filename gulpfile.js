@@ -2,7 +2,6 @@ const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
 const folderDelete = require('folder-delete');
 const runSequence = require('run-sequence');
-const minimist = require('minimist');
 const gulpPaths = require('./gulpPaths');
 
 const args = process.argv;

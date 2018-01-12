@@ -20,6 +20,13 @@ gulp.task('server:js', () =>
     .pipe(plugins.sourcemaps.write('.'))
     .pipe(gulp.dest(gulpPaths.path.serverJsBUILD)));
 
+gulp.task('server:js:PROD', () =>
+  gulp
+    .src(gulpPaths.path.serverJsSRC)
+    .pipe(plugins.babel())
+    .on('error', plugins.util.log.bind(plugins.util))
+    .pipe(gulp.dest(gulpPaths.path.serverJsBUILD)));
+
 gulp.task('server:develop', () => {
   plugins.developServer.listen({
     path: './index.js',
@@ -38,6 +45,10 @@ gulp.task('watch', () => {
   gulp.watch(gulpPaths.path.serverJsSRC, ['server:js']);
 });
 
-gulp.task('serve', (done) => {
+gulp.task('serve:development', (done) => {
   runSequence('clean', ['server:js'], ['server:develop', 'watch'], done);
+});
+
+gulp.task('build:production', (done) => {
+  runSequence('clean', ['server:js:PROD'], done);
 });

@@ -4,7 +4,8 @@
   "description": "freeCodeCamp Book Trading Project",
   "main": "index.js",
   "scripts": {
-    "serverBuild": "NODE_ENV=development gulp serve",
+    "serverBuildDEV": "NODE_ENV=development gulp serve:development",
+    "serverBuildPROD": "NODE_ENV=production gulp build:production",
     "test": "jest"
   },
   "repository": {
@@ -21,7 +22,9 @@
     "body-parser": "^1.18.2",
     "chalk": "^2.3.0",
     "compression": "^1.7.1",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "minimist": "^1.2.0",
     "run-sequence": "^2.2.1"
   },

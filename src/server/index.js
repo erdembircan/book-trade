@@ -5,8 +5,8 @@ import envSelector from './utils/envSelector';
 import path from 'path';
 
 envSelector.setParams({
-  prodPath: path.resolve(__dirname, './sData'),
-  devPath: path.resolve(__dirname, './config'),
+  production: path.resolve(__dirname, './sData'),
+  development: path.resolve(__dirname, './config'),
 });
 
 const parsedArgs = minimist(process.argv, {

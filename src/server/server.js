@@ -27,6 +27,8 @@ export default class Server {
       cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
     }));
 
+    console.log(envSelector.getData('sessionSecret'));
+
     this._app.use(bodyParser.urlencoded({ extended: false }));
 
     this._app.use(mainRoute);

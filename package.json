@@ -6,7 +6,7 @@
   "scripts": {
     "serverBuildDEV": "NODE_ENV=development gulp serve:development",
     "serverBuildPROD": "NODE_ENV=production gulp build:production",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "jest": {
     "testRegex": "/.*.test.js$"

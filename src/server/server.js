@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import bodyParser from 'body-parser';
+import helmet from 'helmet';
 import zlib from 'zlib';
 import mainRoute from './routes';
 import envSelector from './utils/envSelector';
@@ -15,6 +16,9 @@ const compress = compression({
 export default class Server {
   constructor(port) {
     this._app = express();
+
+    this._app.use(helmet());
+
     this._app.set('port', port);
     this._app.use(compress);
 
@@ -26,8 +30,6 @@ export default class Server {
       saveUninitialized: true,
       cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
     }));
-
-    console.log(envSelector.getData('sessionSecret'));
 
     this._app.use(bodyParser.urlencoded({ extended: false }));
 

@@ -9,7 +9,7 @@
     "test": "jest --verbose"
   },
   "jest": {
-    "testRegex": "/.*.test.js$"
+    "testRegex": ".*.test.js$"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
+    "helmet": "^3.9.0",
     "minimist": "^1.2.0",
     "run-sequence": "^2.2.1"
   },

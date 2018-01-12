@@ -11,7 +11,7 @@ envSelector.setParams({
 
 const parsedArgs = minimist(process.argv, {
   default: {
-    'server-port': config.developmentServerPort,
+    'server-port': envSelector.getData('serverPort'),
   },
 });
 

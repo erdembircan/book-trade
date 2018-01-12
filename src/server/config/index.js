@@ -1,4 +1,4 @@
 module.exports = {
-  developmentServerPort: 3000,
+  serverPort: 3000,
   sessionSecret: 'sessionsecret',
 };

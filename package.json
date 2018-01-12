@@ -1,0 +1,38 @@
+{
+  "name": "book-trade",
+  "version": "1.0.0",
+  "description": "freeCodeCamp Book Trading Project",
+  "main": "index.js",
+  "scripts": {
+    "serverBuild": "NODE_ENV=development gulp serve",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/erdembircan/book-trade.git"
+  },
+  "author": "Erdem Bircan <erdem.erdembircan@gmail.com> (https://erdembircan.github.io/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/erdembircan/book-trade/issues"
+  },
+  "homepage": "https://github.com/erdembircan/book-trade#readme",
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "compression": "^1.7.1",
+    "express": "^4.16.2",
+    "minimist": "^1.2.0",
+    "run-sequence": "^2.2.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "folder-delete": "^1.0.3",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-develop-server": "^0.5.2",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-sourcemaps": "^2.6.3",
+    "gulp-util": "^3.0.8"
+  }
+}

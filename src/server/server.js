@@ -1,6 +1,7 @@
 import express from 'express';
 import compression from 'compression';
 import chalk from 'chalk';
+import bodyParser from 'body-parser';
 import zlib from 'zlib';
 import mainRoute from './routes';
 
@@ -13,6 +14,8 @@ export default class Server {
     this._app = express();
     this._app.set('port', port);
     this._app.use(compress);
+
+    this._app.use(bodyParser.urlencoded({ extended: false }));
 
     this._app.use(mainRoute);
 

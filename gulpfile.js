@@ -19,7 +19,7 @@ gulp.task('server:js', () =>
     .pipe(plugins.sourcemaps.write('.'))
     .pipe(gulp.dest(gulpPaths.path.serverJsBUILD)));
 
-gulp.task('server:js:PROD', () =>
+gulp.task('server:js:prod', () =>
   gulp
     .src(gulpPaths.path.serverJsSRC)
     .pipe(plugins.babel())
@@ -49,5 +49,5 @@ gulp.task('serve:development', (done) => {
 });
 
 gulp.task('build:production', (done) => {
-  runSequence('clean', ['server:js:PROD'], done);
+  runSequence('clean', ['server:js:prod'], done);
 });

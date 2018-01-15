@@ -6,6 +6,8 @@
   "scripts": {
     "serverBuildDEV": "NODE_ENV=development gulp serve:development",
     "serverBuildPROD": "NODE_ENV=production gulp build:production",
+    "clientBuildDEV": "NODE_ENV=development webpack",
+    "clientAnalyse": "NODE_ENV=analyse webpack",
     "test": "jest --verbose"
   },
   "jest": {
@@ -30,11 +32,16 @@
     "express-session": "^1.15.6",
     "helmet": "^3.9.0",
     "minimist": "^1.2.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
     "run-sequence": "^2.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "folder-delete": "^1.0.3",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
@@ -43,6 +50,7 @@
     "gulp-sourcemaps": "^2.6.3",
     "gulp-util": "^3.0.8",
     "jest": "^22.0.6",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-bundle-analyzer": "^2.9.2"
   }
 }

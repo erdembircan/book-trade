@@ -7,8 +7,9 @@
     "serverBuildDEV": "NODE_ENV=development gulp serve:development",
     "serverBuildPROD": "NODE_ENV=production gulp build:production",
     "clientBuildDEV": "NODE_ENV=development webpack",
-    "clientAnalyse": "NODE_ENV=analyse webpack",
+    "client-analyse": "NODE_ENV=analyse webpack --config webpack.client.config.js -p",
     "build-server": "NODE_ENV=development webpack --config webpack.server.config.js -p",
+    "build-client": "NODE_ENV=development webpack --config webpack.client.config.js -p",
     "test": "jest --verbose"
   },
   "jest": {

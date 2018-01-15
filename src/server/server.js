@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import zlib from 'zlib';
 import mainRoute from './routes';
+import path from 'path';
 
 const compress = compression({
   flush: zlib.Z_PARTIAL_FLUSH,

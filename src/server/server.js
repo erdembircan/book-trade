@@ -7,7 +7,6 @@ import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import zlib from 'zlib';
 import mainRoute from './routes';
-import envSelector from './utils/envSelector';
 
 const compress = compression({
   flush: zlib.Z_PARTIAL_FLUSH,
@@ -32,6 +31,8 @@ export default class Server {
     }));
 
     this._app.use(bodyParser.urlencoded({ extended: false }));
+
+    this._app.use('/client', express.static(path.resolve(__dirname, '../../build/client')));
 
     this._app.use(mainRoute);
 

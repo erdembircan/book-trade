@@ -22,7 +22,9 @@ gulp.task('server:js', () =>
 gulp.task('server:js:prod', () =>
   gulp
     .src(gulpPaths.path.serverJsSRC)
-    .pipe(plugins.babel())
+    .pipe(plugins.babel({
+      presets: ['env', 'react'],
+    }))
     .on('error', plugins.util.log.bind(plugins.util))
     .pipe(gulp.dest(gulpPaths.path.serverJsBUILD)));
 

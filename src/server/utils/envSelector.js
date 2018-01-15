@@ -19,4 +19,5 @@ class EnvSelector {
   }
 }
 
-module.exports = new EnvSelector();
+export default new EnvSelector();
+// module.exports = new EnvSelector();

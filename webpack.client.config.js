@@ -40,6 +40,7 @@ const config = {
     ],
   },
   resolve: {
+    modules: ['node_modules', SRC],
     extensions: ['.js'],
   },
   plugins,

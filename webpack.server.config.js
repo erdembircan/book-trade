@@ -20,7 +20,7 @@ const config = {
     __filename: false,
   },
   resolve: {
-    modules: ['node_modules'],
+    modules: ['node_modules', SRC],
     extensions: ['.js'],
   },
   module: {

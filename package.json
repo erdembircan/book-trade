@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "client-analyse": "NODE_ENV=analyse webpack --config webpack.client.config.js -p",
-    "build-server": "NODE_ENV=development webpack --config webpack.server.config.js -p",
-    "build-client": "NODE_ENV=development webpack --config webpack.client.config.js -p",
+    "build-server-dev": "webpack --config webpack.server.config.js --watch --progress --colors",
+    "build-client-dev": "webpack --config webpack.client.config.js --watch --progress --colors",
+    "build-dev":
+      "concurrently -n \"server,client\" -c \"magenta,cyan\" \"npm run build-server-dev\" \"npm run build-client-dev\"",
+    "start-dev": "NODE_ENV=development nodemon build/server/server.js",
     "test": "jest --verbose"
   },
   "jest": {
@@ -27,6 +30,7 @@
     "chalk": "^2.3.0",
     "compression": "^1.7.1",
     "cookie-parser": "^1.4.3",
+    "env-data": "^1.0.0",
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "helmet": "^3.9.0",
@@ -43,6 +47,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "concurrently": "^3.5.1",
     "folder-delete": "^1.0.3",
     "jest": "^22.0.6",
     "webpack": "^3.10.0",

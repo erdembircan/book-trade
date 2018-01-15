@@ -3,7 +3,7 @@ export default (html, css) => `
     <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <title>Get real playlists to share with Spotify</title>
+            <title>Book Club</title>
         </head>
         <body>
             <div id="root">${html}</div>

@@ -1,4 +1,5 @@
 import express from 'express';
+import envData from 'env-data';
 import compression from 'compression';
 import chalk from 'chalk';
 import cookieParser from 'cookie-parser';
@@ -25,7 +26,7 @@ export default class Server {
     this._app.use(cookieParser());
 
     this._app.use(session({
-      secret: 'none atm',
+      secret: envData.getData('sessionSecret'),
       resave: false,
       saveUninitialized: true,
       cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },

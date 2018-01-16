@@ -34,7 +34,7 @@ export default class Server {
 
     this._app.use(bodyParser.urlencoded({ extended: false }));
 
-    this._app.use('/client', express.static(path.resolve(__dirname, '../../build/client')));
+    this._app.use('/public', express.static('./build'));
 
     this._app.use(mainRoute);
 

@@ -7,8 +7,8 @@ export default (html, loadableState) => `
         </head>
         <body>
             <div id="root">${html}</div>
-            <script src="/client/vendor.js"></script>
-            <script src="/client/client.js"></script>
+            <script src="/public/client/vendor.js"></script>
+            <script src="/public/client/client.js"></script>
             ${loadableState.getScriptTag()}
         </body>
     </html>

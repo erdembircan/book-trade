@@ -2,7 +2,7 @@ import express from 'express';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import {getLoadableState} from 'loadable-components/server';
+import { getLoadableState } from 'loadable-components/server';
 import App from '../../../src/client/App';
 import render from '../utils/render';
 
@@ -24,7 +24,7 @@ router.get('*', async (req, res) => {
   const loadableState = await getLoadableState(appWithRouter);
   const html = ReactDOMServer.renderToString(appWithRouter);
 
-  res.send(render(html,loadableState));
+  res.send(render(html, loadableState));
 });
 
 export default router;

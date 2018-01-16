@@ -27,16 +27,15 @@ const config = {
   output: {
     path: BUILD,
     filename: '[name].js',
-    publicPath: '/',
+    publicPath: '/public/client/',
   },
   module: {
     loaders: [
       {
-        test: /\.(jsx)$/,
+        test: /\.(js)$/,
         loader: 'babel-loader',
         exclude: ['node_modules'],
       },
-      { test: /\.(js)$/, loader: 'babel-loader', exclude: ['node_modules'] },
     ],
   },
   resolve: {

@@ -13,7 +13,7 @@ const config = {
   output: {
     path: BUILD,
     filename: 'server.js',
-    publicPath: '/',
+    publicPath: '/public/server/',
   },
   node: {
     __dirname: false,
@@ -21,7 +21,7 @@ const config = {
   },
   resolve: {
     modules: ['node_modules', SRC],
-    extensions: ['.js'],
+    extensions: ['*', '.js'],
   },
   module: {
     rules: [

@@ -1,15 +1,7 @@
 {
-  "presets": [
-    "react",
-    "env"
-  ],
   "plugins": [
-    [
-      "dynamic-import-webpack"
-    ],
-    [
-      "syntax-dynamic-import"
-    ],
+    ["dynamic-import-webpack"],
+    ["syntax-dynamic-import"],
     [
       "transform-runtime",
       {
@@ -19,5 +11,6 @@
         "moduleName": "babel-runtime"
       }
     ]
-  ]
+  ],
+  "presets": ["react", "env"]
 }

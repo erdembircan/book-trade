@@ -3,28 +3,42 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { getLoadableState } from 'loadable-components/server';
+import { combineReducers, createStore } from 'redux';
+import { Provider } from 'react-redux';
+import value from '../../client/reducers/mathReducer';
 import App from '../../../src/client/App';
 import render from '../utils/render';
 
 const router = express.Router();
 
-// router.get('/', (req, res) => {
-//   res.send('hello from the server...');
-// });
+router.get('/favicon.ico', (req, res) => {
+  res.sendStatus(203);
+});
 
 router.get('*', async (req, res) => {
   const context = {};
 
+  const store = createStore(combineReducers({ value }), { value: 5 });
+
   const appWithRouter = (
-    <StaticRouter location={req.url} context={context}>
-      <App />
-    </StaticRouter>
+    <Provider store={store}>
+      <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>
+    </Provider>
   );
 
+  if (context.url) {
+    res.redirect(context.url);
+    return;
+  }
+
+  const preloadedState = store.getState();
   const loadableState = await getLoadableState(appWithRouter);
+
   const html = ReactDOMServer.renderToString(appWithRouter);
 
-  res.send(render(html, loadableState));
+  res.send(render(html, loadableState, preloadedState));
 });
 
 export default router;

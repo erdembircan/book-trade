@@ -22,7 +22,7 @@ const config = {
 
   entry: {
     client: path.join(SRC, 'index.js'),
-    vendor: ['react', 'react-dom', 'react-router-dom'],
+    vendor: ['react', 'react-dom', 'react-router-dom', 'redux', 'react-redux'],
   },
   output: {
     path: BUILD,

@@ -1,4 +1,4 @@
-export default (html, loadableState) => `
+export default (html, loadableState, preloadedState) => `
     <!DOCTYPE html>
     <html lang="en">
         <head>
@@ -7,6 +7,7 @@ export default (html, loadableState) => `
         </head>
         <body>
             <div id="root">${html}</div>
+            <script>window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)}</script>
             <script src="/public/client/vendor.js"></script>
             <script src="/public/client/client.js"></script>
             ${loadableState.getScriptTag()}

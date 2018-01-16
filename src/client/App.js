@@ -1,10 +1,10 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import HomePage from './components/HomePage';
+import {  Switch, Route } from 'react-router-dom';
+import * as Routes from './routes';
 
 const App = props => (
   <Switch>
-    <Route exact path="/" component={HomePage} />
+    <Route exact path="/" component={Routes.HomePage} />
   </Switch>
 );
 

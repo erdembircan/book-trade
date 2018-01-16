@@ -1,5 +1,9 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import { loadComponents } from 'loadable-components';
 import Main from './Main';
 
-ReactDom.render(<Main />, document.getElementById('root'));
+loadComponents().then(()=>{
+  ReactDom.render(<Main />, document.getElementById('root'));
+});
+

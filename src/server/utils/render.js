@@ -1,4 +1,4 @@
-export default (html, css) => `
+export default (html, loadableState) => `
     <!DOCTYPE html>
     <html lang="en">
         <head>
@@ -9,6 +9,7 @@ export default (html, css) => `
             <div id="root">${html}</div>
             <script src="/client/vendor.js"></script>
             <script src="/client/client.js"></script>
+            ${loadableState.getScriptTag()}
         </body>
     </html>
 `;

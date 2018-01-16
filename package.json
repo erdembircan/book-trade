@@ -7,8 +7,7 @@
     "client-analyse": "NODE_ENV=analyse webpack --config webpack.client.config.js -p",
     "build-server-dev": "webpack --config webpack.server.config.js --watch --progress --colors",
     "build-client-dev": "webpack --config webpack.client.config.js --watch --progress --colors",
-    "build-dev":
-      "concurrently -n \"server,client\" -c \"magenta,cyan\" \"npm run build-server-dev\" \"npm run build-client-dev\"",
+    "build-dev": "concurrently -n \"server,client\" -c \"magenta,cyan\" \"npm run build-server-dev\" \"npm run build-client-dev\"",
     "start-dev": "NODE_ENV=development nodemon build/server/server.js",
     "test": "jest --verbose"
   },
@@ -26,6 +25,7 @@
   },
   "homepage": "https://github.com/erdembircan/book-trade#readme",
   "dependencies": {
+    "babel-runtime": "^6.26.0",
     "body-parser": "^1.18.2",
     "chalk": "^2.3.0",
     "compression": "^1.7.1",
@@ -34,6 +34,7 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "helmet": "^3.9.0",
+    "loadable-components": "^0.4.0",
     "minimist": "^1.2.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -43,6 +44,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
+    "babel-plugin-dynamic-import-webpack": "^1.0.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",

@@ -1,5 +1,5 @@
 const config = {
-  serverPort: 3000,
+  serverPort: 3100,
   sessionSecret: 'sessionsecret',
 };
 

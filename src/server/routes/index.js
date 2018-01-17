@@ -5,6 +5,7 @@ import { StaticRouter } from 'react-router-dom';
 import { getLoadableState } from 'loadable-components/server';
 import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
+import CustomMui from '../../shared/muiTheme';
 import value from '../../client/reducers/mathReducer';
 import App from '../../../src/client/App';
 import render from '../utils/render';
@@ -21,11 +22,13 @@ router.get('*', async (req, res) => {
   const store = createStore(combineReducers({ value }), { value: 5 });
 
   const appWithRouter = (
-    <Provider store={store}>
-      <StaticRouter location={req.url} context={context}>
-        <App />
-      </StaticRouter>
-    </Provider>
+    <CustomMui>
+      <Provider store={store}>
+        <StaticRouter location={req.url} context={context}>
+          <App />
+        </StaticRouter>
+      </Provider>
+    </CustomMui>
   );
 
   if (context.url) {

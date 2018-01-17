@@ -3,6 +3,8 @@ import minimist from 'minimist';
 import path from 'path';
 import Server from './server';
 
+global.navigator = { userAgent: 'all' };
+
 envData.setParameters({
   development: path.resolve(__dirname, '../../src/server/config/index.js'),
   production: path.resolve(__dirname, '../../src/server/sData/index.js'),

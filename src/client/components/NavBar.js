@@ -11,10 +11,15 @@ class NavBar extends React.Component {
     return (
       <div>
         <div className="navBackground">Book Club</div>
-        <div className="navWrapper">
-          <FlatButton label="Sign Up" secondary />
-          <FlatButton label="Log In" secondary />
-        </div>
+        <AppBar
+          showMenuIconButton={false}
+          iconElementRight={
+            <div style={{margin: 0}}>
+              <FlatButton label="Sign Up" secondary />
+              <FlatButton label="Log In" secondary />
+            </div>
+          }
+        />
       </div>
     );
   }

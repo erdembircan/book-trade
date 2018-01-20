@@ -11,8 +11,8 @@ html
 html, body
   margin: 0px
   box-sizing: border-box
-  font-family: 'Ubuntu', sans-serif
-  color: $primary-color
+  font-family: $primary-font
+  color: $text-color
 
 *, *::before, *::after
   box-sizing: inherit
@@ -25,7 +25,7 @@ html, body
   background-size: cover
   background-position: 0% 20%
   font-family: 'Pacifico', sans-serif
-  font-size: 60px
+  font-size: 3.75rem
   text-shadow: 0px 0px 15px $secondary-color
   display: flex
   justify-content: center
@@ -39,6 +39,28 @@ html, body
 .navWrapper
   background-color: $primary-color
   height: 64px
+  display: flex
+  flex-direction: row
+  justify-content: center
+  align-items: center
+  transition: all .3s ease-out
+  .navLogo
+    max-width: 0
+    color: $alternative-text-color
+    font-family: $logo-font
+    font-size: 2rem
+    transform: translateX(calc(-100% - 10px))
+    overflow: hidden
+    transition: transform .3s ease-out
+  .buttonsRight
+    height: 100%
+
+.compact
+  justify-content: space-between
+  .navLogo
+    max-width: 800px
+    transform: translatex(0)
+
 
 .bodyWrapper
   margin: 0px
@@ -49,7 +71,7 @@ html, body
   align-items: center
   .bodyInner
     width: 90%
-    min-height: 500px
+    min-height: 50vh
     max-width: 1150px
     background-color: $secondary-color
     padding: 10px

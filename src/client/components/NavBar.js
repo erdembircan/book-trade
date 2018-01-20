@@ -11,15 +11,13 @@ class NavBar extends React.Component {
     return (
       <div>
         <div className="navBackground">Book Club</div>
-        <AppBar
-          showMenuIconButton={false}
-          iconElementRight={
-            <div style={{margin: 0}}>
-              <FlatButton label="Sign Up" secondary />
-              <FlatButton label="Log In" secondary />
-            </div>
-          }
-        />
+        <div className="navWrapper">
+          <div className='navLogo'>Book Club</div>
+          <div className='buttonsRight'>
+            <FlatButton label="Sign Up" style={{height: '100%', 'marginLeft': '8px', 'marginRight': '8px' }} secondary />
+            <FlatButton label="Log In" style={{height: '100%', 'marginLeft': '8px', 'marginRight': '8px' }} secondary />
+          </div>
+        </div>
       </div>
     );
   }

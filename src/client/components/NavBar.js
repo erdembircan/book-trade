@@ -1,5 +1,6 @@
 import React from 'react';
-import { AppBar } from 'material-ui';
+import FlatButton from 'material-ui/FlatButton';
+import AppBar from 'material-ui/AppBar';
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -9,12 +10,10 @@ class NavBar extends React.Component {
   render() {
     return (
       <div>
-        <div className="navBackground">
-        Book Club
-        
-        </div>
+        <div className="navBackground">Book Club</div>
         <div className="navWrapper">
-         
+          <FlatButton label="Sign Up" secondary />
+          <FlatButton label="Log In" secondary />
         </div>
       </div>
     );

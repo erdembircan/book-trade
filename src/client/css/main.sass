@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu')
+@import url('https://fonts.googleapis.com/css?family=Pacifico')
+@import theme
+
+html, body
+  margin: 0px
+  box-sizing: border-box
+  font-family: 'Ubuntu', sans-serif
+  color: $primary-color
+
+*, *::before, *::after
+  box-sizing: inherit
+
+
+.navBackground
+  height: 200px
+  background-image: url('/public/client/img/stack_books.jpeg')
+  background-repeat: no-repeat
+  background-size: cover
+  background-position: 0% 20%
+  font-family: 'Pacifico', sans-serif
+  font-size: 60px
+  text-shadow: 0px 0px 15px $secondary-color
+  display: flex
+  justify-content: center
+  align-items: center
+  filter: grayscale(50%)
+  &:after,&:before
+    content: ''
+    width: 20%
+    border-bottom: solid 5px 
+
+.navWrapper
+  background-color: $primary-color
+  height: 64px
+
+.bodyWrapper
+  background-color: $background-color
+  background-image: $background-pattern
+  background-size: 50px auto
+  margin: 0px
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  .bodyInner
+    width: 90%
+    max-width: 1150px
+    background-color: $secondary-color
+    padding: 10px
+    box-shadow: 0px 0px 10px $shadow-color
+

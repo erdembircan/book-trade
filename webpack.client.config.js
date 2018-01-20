@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 const SRC = path.resolve(__dirname, './src/client');
@@ -10,6 +11,7 @@ const plugins = [
     name: 'vendor',
     minChunks: Infinity,
   }),
+  new CopyWebpackPlugin([{ from: 'img', to: 'img' }]),
 ];
 
 if (process.env.NODE_ENV === 'analyse') {
@@ -31,6 +33,10 @@ const config = {
   },
   module: {
     loaders: [
+      {
+        test: /\.(sass)$/,
+        loader: ['style-loader', 'css-loader', 'sass-loader'],
+      },
       {
         test: /\.(js)$/,
         loader: 'babel-loader',

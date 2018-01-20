@@ -5,7 +5,7 @@ export default (html, loadableState, preloadedState) => `
             <meta charset="UTF-8">
             <title>Book Club</title>
         </head>
-        <body style="margin:0px">
+        <body>
             <div id="root">${html}</div>
             <script>window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState)}</script>
             <script src="/public/client/vendor.js"></script>

@@ -2,6 +2,12 @@
 @import url('https://fonts.googleapis.com/css?family=Pacifico')
 @import theme
 
+html
+  background-color: $background-color
+  background-image: $background-pattern
+  background-size: 50px auto
+
+
 html, body
   margin: 0px
   box-sizing: border-box
@@ -35,9 +41,6 @@ html, body
   height: 64px
 
 .bodyWrapper
-  background-color: $background-color
-  background-image: $background-pattern
-  background-size: 50px auto
   margin: 0px
   display: flex
   flex-direction: column
@@ -45,6 +48,7 @@ html, body
   align-items: center
   .bodyInner
     width: 90%
+    min-height: 500px
     max-width: 1150px
     background-color: $secondary-color
     padding: 10px

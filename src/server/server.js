@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import zlib from 'zlib';
 import mainRoute from './routes';
+import apiRoute from './routes/api';
 import path from 'path';
 
 const compress = compression({
@@ -36,6 +37,7 @@ export default class Server {
 
     this._app.use('/public', express.static('./build'));
 
+    this._app.use('/api', apiRoute);
     this._app.use(mainRoute);
 
     this._app.use((err, req, res, next) => {

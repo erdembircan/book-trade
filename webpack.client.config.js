@@ -22,6 +22,12 @@ const config = {
   context: SRC,
   target: 'web',
 
+  devServer: {
+    proxy: {
+      '/': 'http://localhost:3000',
+    },
+  },
+
   entry: {
     client: path.join(SRC, 'index.js'),
     vendor: ['react', 'react-dom', 'react-router-dom', 'redux', 'react-redux', 'material-ui'],

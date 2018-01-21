@@ -9,7 +9,8 @@
     "build-client-dev": "webpack --config webpack.client.config.js --watch --progress --colors -p",
     "build-dev": "concurrently -n \"server,client,nodemon\" -c \"magenta,cyan,green\" \"npm run build-server-dev\" \"npm run build-client-dev\" \"npm run start-dev\"",
     "start-dev": "NODE_ENV=development nodemon build/server/server.js",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "devServer": "webpack-dev-server --config webpack.client.config.js --open"
   },
   "jest": {
     "testRegex": ".*.test.js$"
@@ -25,6 +26,7 @@
   },
   "homepage": "https://github.com/erdembircan/book-trade#readme",
   "dependencies": {
+    "axios": "^0.17.1",
     "babel-runtime": "^6.26.0",
     "body-parser": "^1.18.2",
     "chalk": "^2.3.0",
@@ -37,6 +39,7 @@
     "loadable-components": "^0.4.0",
     "material-ui": "^0.20.0",
     "minimist": "^1.2.0",
+    "mongoose": "^5.0.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
@@ -63,6 +66,7 @@
     "style-loader": "^0.19.1",
     "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.9.2",
+    "webpack-dev-server": "^2.11.1",
     "webpack-node-externals": "^1.6.0"
   }
 }

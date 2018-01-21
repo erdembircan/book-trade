@@ -13,7 +13,7 @@ import render from '../utils/render';
 const router = express.Router();
 
 router.get('/favicon.ico', (req, res) => {
-  res.sendStatus(203);
+  res.sendStatus(203)
 });
 
 router.get('*', async (req, res) => {

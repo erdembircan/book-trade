@@ -12,6 +12,8 @@ const App = props => (
         <Route exact path="/" component={Routes.HomePage} />
         <Route path="/contact" component={Routes.Contact} />
         <Route path="/counter" component={Routes.Counter} />
+        <Route path="/signup" component={Routes.SignUp} />
+        <Route path="/login" component={Routes.LogIn} />
       </Switch>
     </Body>
   </div>

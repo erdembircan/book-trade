@@ -2,6 +2,7 @@ import envData from 'env-data';
 import minimist from 'minimist';
 import path from 'path';
 import Server from './server';
+import { connect } from './models';
 
 global.navigator = { userAgent: 'all' };
 
@@ -15,6 +16,8 @@ const parsedArgs = minimist(process.argv, {
     serverPort: envData.getData('serverPort'),
   },
 });
+
+connect(envData.getData('mongoDb'));
 
 const server = new Server(process.env.PORT || parsedArgs.serverPort);
 

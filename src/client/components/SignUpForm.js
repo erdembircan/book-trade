@@ -3,9 +3,10 @@ import { Card, CardText, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { Link } from 'react-router-dom';
+import BusySpinner from './BusyBar';
 
 const SignUpForm = ({
-  onSubmit, onChange, onClear, user,
+  onSubmit, onChange, onClear, user, isBusy,
 }) => (
   <Card className="formContainer">
     <CardTitle title="Sign Up" subtitle="Fill in the form" />
@@ -24,7 +25,8 @@ const SignUpForm = ({
           floatingLabelText="Password"
           name="password"
           onChange={onChange}
-          value={user.password} required
+          value={user.password}
+          required
         />
       </div>
       <div className="buttonContainer">
@@ -37,6 +39,7 @@ const SignUpForm = ({
           onClick={onClear}
         />
       </div>
+      <BusySpinner isBusy={isBusy} />
     </form>
 
     <CardText>

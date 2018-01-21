@@ -1,8 +1,12 @@
 import types from '../constants';
+import { getIsFetching } from '../reducers';
 
-const actions = {
-  incrementAction: { type: types.increment },
-  decrementAction: { type: types.decrement },
+export const addUser = user => (dispatch, getState) => {
+  if (getIsFetching(getState())) return;
+
+  dispatch({ type: types.fetchRequest });
+
+  setTimeout(() => {
+    dispatch({ type: types.fetchSuccess });
+  }, 5000);
 };
-
-export default actions;

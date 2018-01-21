@@ -6,20 +6,20 @@ import { getLoadableState } from 'loadable-components/server';
 import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import CustomMui from '../../shared/muiTheme';
-import value from '../../client/reducers/mathReducer';
+import reducer from '../../client/reducers';
 import App from '../../../src/client/App';
 import render from '../utils/render';
 
 const router = express.Router();
 
 router.get('/favicon.ico', (req, res) => {
-  res.sendStatus(203)
+  res.sendStatus(203);
 });
 
 router.get('*', async (req, res) => {
   const context = {};
 
-  const store = createStore(combineReducers({ value }), { value: 5 });
+  const store = createStore(reducer);
 
   const appWithRouter = (
     <CustomMui>

@@ -1,10 +1,14 @@
-import { combineReducers, createStore } from 'redux';
-import value from './reducers/mathReducer';
-import { devToolsEnhancer } from 'redux-devtools-extension';
-
-const reducers = combineReducers({ value });
+import { applyMiddleware, createStore } from 'redux';
+import reducers from './reducers';
+import { devToolsEnhancer, composeWithDevTools } from 'redux-devtools-extension';
 
 const preloadedState = window.__PRELOADED_STATE__;
 delete window.__PRELOADED_STATE__;
 
-export default () => createStore(reducers, preloadedState, devToolsEnhancer());
+const thunk = store => next => action =>
+  (typeof action === 'function' ? action(store.dispatch, store.getState) : next(action));
+
+const middlewares = [thunk];
+
+export default () =>
+  createStore(reducers, preloadedState, composeWithDevTools(applyMiddleware(...middlewares)));

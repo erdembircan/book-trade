@@ -1,5 +1,8 @@
 import React from 'react';
 import SignupForm from '../components/SignUpForm';
+import { connect } from 'react-redux';
+import { getIsFetching } from '../reducers';
+import * as actions from '../actions';
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -35,7 +38,8 @@ class SignUp extends React.Component {
   }
 
   processForm(e) {
-    e.stopDefault();
+    e.preventDefault();
+    this.props.addUser(this.state.user);
   }
 
   render() {
@@ -46,10 +50,17 @@ class SignUp extends React.Component {
           user={this.state.user}
           onSubmit={this.processForm}
           onClear={this.clearForm}
+          isBusy={this.props.isFetching}
         />
       </div>
     );
   }
 }
 
-export default SignUp;
+const mapStateToProps = state => ({
+  isFetching: getIsFetching(state),
+});
+
+const SignUpConnect = connect(mapStateToProps, actions)(SignUp);
+
+export default SignUpConnect;

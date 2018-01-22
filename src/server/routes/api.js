@@ -1,6 +1,7 @@
 import express from 'express';
 import validator from 'validator';
 import validateStrings from '../utils/stringValidate';
+import { checkLength } from '../utils/index';
 
 require('../models/user');
 
@@ -14,9 +15,6 @@ router.post('/addUser', (req, res) => {
   });
 
   const { name, password } = req.body;
-
-  const checkLength = (minLength, maxLength) => str =>
-    str.length >= minLength && str.length <= maxLength;
 
   const errors = validateStrings([
     {
@@ -37,17 +35,20 @@ router.post('/addUser', (req, res) => {
       ],
     },
   ]);
-  if (Object.keys(errors).length > 0) {
-    res.send({
-      errors,
-    });
-  } else {
-    res.send({
-      response: {
-        message: 'done',
-      },
-    });
-  }
+
+  setTimeout(() => {
+    if (Object.keys(errors).length > 0) {
+      res.send({
+        errors,
+      });
+    } else {
+      res.send({
+        response: {
+          message: 'done',
+        },
+      });
+    }
+  }, 5000);
 });
 
 export default router;

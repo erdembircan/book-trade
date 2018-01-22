@@ -36,19 +36,32 @@ router.post('/addUser', (req, res) => {
     },
   ]);
 
-  setTimeout(() => {
-    if (Object.keys(errors).length > 0) {
-      res.send({
-        errors,
-      });
-    } else {
+  if (Object.keys(errors).length > 0) {
+    res.send({
+      errors,
+    });
+  } else {
+    const newUser = new User({
+      name,
+      password,
+    });
+
+    newUser.save((err, user) => {
+      if (err) {
+        if (err.code === 11000) return res.send({ errors: { name: 'username already exists' } });
+
+        res.send({ errors: { global: err } });
+      }
+
       res.send({
         response: {
-          message: 'done',
+          user: {
+            name: user.name,
+          },
         },
       });
-    }
-  }, 5000);
+    });
+  }
 });
 
 export default router;

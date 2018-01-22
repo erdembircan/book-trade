@@ -19,6 +19,10 @@ class SignUp extends React.Component {
     this.clearForm = this.clearForm.bind(this);
   }
 
+  componentDidMount() {
+    this.props.setError();
+  }
+
   processInput(e) {
     const field = e.target.name;
     const { value } = e.target;

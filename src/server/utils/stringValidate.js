@@ -7,9 +7,8 @@ const validateStrings = (config) => {
         error.push(rule.errorMessage);
       }
     });
-    errors[entry.name] = error.join(', ');
+    if (error.length > 0) errors[entry.name] = error.join(', ');
   });
-
 
   return errors;
 };

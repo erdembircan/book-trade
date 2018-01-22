@@ -5,11 +5,11 @@ import TextField from 'material-ui/TextField';
 import { Link } from 'react-router-dom';
 import BusySpinner from './BusySpinner';
 
-const SignUpForm = ({
+const LogInForm = ({
   onSubmit, onChange, onClear, user, isBusy, errors = {},
 }) => (
   <Card className="formContainer">
-    <CardTitle title="Sign Up" subtitle="Fill in the form" />
+    <CardTitle title="Log In" subtitle="Fill in the form" />
     <form onSubmit={onSubmit}>
       <div>
         <TextField
@@ -35,7 +35,7 @@ const SignUpForm = ({
         />
       </div>
       <div className="buttonContainer">
-        <RaisedButton type="submit" label="Create Account" primary style={{ margin: '10px' }} />
+        <RaisedButton type="submit" label="Log In" primary style={{ margin: '10px' }} />
         <RaisedButton
           type="button"
           label="Clear form"
@@ -53,4 +53,4 @@ const SignUpForm = ({
   </Card>
 );
 
-export default SignUpForm;
+export default LogInForm;

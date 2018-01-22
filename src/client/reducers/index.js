@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 import util, * as allUtil from './util';
+import user from './user';
 
-const store = combineReducers({ util });
+const store = combineReducers({ util, user });
 
 export default store;
 

@@ -10,5 +10,13 @@ const thunk = store => next => action =>
 
 const middlewares = [thunk];
 
-export default () =>
-  createStore(reducers, preloadedState, composeWithDevTools(applyMiddleware(...middlewares)));
+export default () => {
+  if (process.env.NODE_ENV === 'production') {
+    return createStore(reducers, preloadedState, applyMiddleware(...middlewares));
+  }
+  return createStore(
+    reducers,
+    preloadedState,
+    composeWithDevTools(applyMiddleware(...middlewares)),
+  );
+};

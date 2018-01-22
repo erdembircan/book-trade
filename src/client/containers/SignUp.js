@@ -43,7 +43,7 @@ class SignUp extends React.Component {
     this.props.setError();
     this.props.addUser(this.state.user).then((res) => {
       if (res && res.response) {
-        console.log(res.response);
+        window.location.replace('/');
       }
     });
   }

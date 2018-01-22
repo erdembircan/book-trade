@@ -14,7 +14,9 @@ import reducer from '../../client/reducers';
 const renderToReact = async (req, preLoadedState = {}) => {
   const context = {};
 
-  const store = createStore(reducer, preLoadedState);
+  const sessionStore = { ...req.session.store, ...preLoadedState };
+
+  const store = createStore(reducer, sessionStore);
 
   const app = (
     <CustomMui>
@@ -27,7 +29,7 @@ const renderToReact = async (req, preLoadedState = {}) => {
   );
 
   const state = store.getState();
-  writeStoreToSession(req, preLoadedState);
+  writeStoreToSession(req, state);
 
   const loadable = await getLoadableState(app);
 

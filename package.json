@@ -36,6 +36,7 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "helmet": "^3.9.0",
+    "jsonwebtoken": "^8.1.0",
     "loadable-components": "^0.4.0",
     "material-ui": "^0.20.0",
     "minimist": "^1.2.0",

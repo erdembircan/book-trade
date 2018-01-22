@@ -19,10 +19,6 @@ class SignUp extends React.Component {
     this.clearForm = this.clearForm.bind(this);
   }
 
-  componentDidMount() {
-    this.props.setError();
-  }
-
   processInput(e) {
     const field = e.target.name;
     const { value } = e.target;
@@ -44,6 +40,7 @@ class SignUp extends React.Component {
 
   processForm(e) {
     e.preventDefault();
+    this.props.setError();
     this.props.addUser(this.state.user).then((res) => {
       if (res && res.response) {
         console.log(res.response);

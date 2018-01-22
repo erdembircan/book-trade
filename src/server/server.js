@@ -7,9 +7,9 @@ import session from 'express-session';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import zlib from 'zlib';
+import path from 'path';
 import mainRoute from './routes';
 import apiRoute from './routes/api';
-import path from 'path';
 
 const compress = compression({
   flush: zlib.Z_PARTIAL_FLUSH,
@@ -22,6 +22,11 @@ export default class Server {
     this._app.use(helmet());
 
     this._app.set('port', port);
+
+    this._app.use(
+      '/favicon.ico',
+      express.static(path.resolve(__dirname, '../client/img/favicon.ico')),
+    );
     this._app.use(compress);
 
     this._app.use(cookieParser());

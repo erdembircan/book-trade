@@ -10,7 +10,8 @@
         "regenerator": true,
         "moduleName": "babel-runtime"
       }
-    ]
+    ],
+    ["transform-object-rest-spread"]
   ],
   "presets": ["react", "env"]
 }

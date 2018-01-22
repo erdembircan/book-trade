@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import BusySpinner from './BusySpinner';
 
 const SignUpForm = ({
-  onSubmit, onChange, onClear, user, isBusy,
+  onSubmit, onChange, onClear, user, isBusy, errors = {},
 }) => (
   <Card className="formContainer">
     <CardTitle title="Sign Up" subtitle="Fill in the form" />
@@ -17,6 +17,8 @@ const SignUpForm = ({
           name="name"
           onChange={onChange}
           value={user.name}
+          errorText={errors.name}
+          autoComplete="on"
           required
         />
       </div>
@@ -26,6 +28,9 @@ const SignUpForm = ({
           name="password"
           onChange={onChange}
           value={user.password}
+          errorText={errors.password}
+          type="password"
+          autoComplete="on"
           required
         />
       </div>

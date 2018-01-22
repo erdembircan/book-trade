@@ -13,6 +13,13 @@ const isFetching = (state = false, action) => {
   }
 };
 
-export default combineReducers({ isFetching });
+const errors = (state = {}, action) => {
+  if (action.type === types.setError) {
+    return { ...state, ...action.errors };
+  }
+  return state;
+};
+
+export default combineReducers({ isFetching, errors });
 
 export const getIsFetching = state => state.isFetching;

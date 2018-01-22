@@ -35,11 +35,16 @@ class SignUp extends React.Component {
     });
 
     this.setState({ user });
+    this.props.setError();
   }
 
   processForm(e) {
     e.preventDefault();
-    this.props.addUser(this.state.user);
+    this.props.addUser(this.state.user).then((res) => {
+      if (res && res.response) {
+        console.log(res.response);
+      }
+    });
   }
 
   render() {
@@ -51,6 +56,7 @@ class SignUp extends React.Component {
           onSubmit={this.processForm}
           onClear={this.clearForm}
           isBusy={this.props.isFetching}
+          errors={this.props.errors}
         />
       </div>
     );
@@ -59,6 +65,7 @@ class SignUp extends React.Component {
 
 const mapStateToProps = state => ({
   isFetching: getIsFetching(state),
+  errors: state.util.errors,
 });
 
 const SignUpConnect = connect(mapStateToProps, actions)(SignUp);

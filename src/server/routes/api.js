@@ -10,6 +10,7 @@ const User = require('mongoose').model('User');
 const router = new express.Router();
 
 router.post('/addUser', (req, res) => {
+  req.session.user = 'admin';
   Object.keys(req.body).map((key) => {
     req.body[key] = req.body[key].trim();
   });

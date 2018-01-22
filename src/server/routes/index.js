@@ -17,6 +17,7 @@ router.get('/favicon.ico', (req, res) => {
 });
 
 router.get('*', async (req, res) => {
+  
   const context = {};
 
   const store = createStore(reducer);

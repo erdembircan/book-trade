@@ -1,4 +1,4 @@
-import { grey900, grey100,white } from 'material-ui/styles/colors';
+import { grey900, grey100, white } from 'material-ui/styles/colors';
 
 const theme = {
   palette: {

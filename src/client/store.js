@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore } from 'redux';
-import reducers from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import reducers from './reducers';
 
 let preloadedState = window.__PRELOADED_STATE__;
 const serverMessage = window.__SERVER_MESSAGE__;

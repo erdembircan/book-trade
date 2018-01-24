@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, CardText, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { Link } from 'react-router-dom';
 import BusySpinner from './BusySpinner';
 
 const SignUpForm = ({

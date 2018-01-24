@@ -1,8 +1,7 @@
 import React from 'react';
-import { Card, CardText, CardTitle } from 'material-ui/Card';
+import { Card, CardTitle } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { Link } from 'react-router-dom';
 import BusySpinner from './BusySpinner';
 
 const LogInForm = ({
@@ -46,10 +45,6 @@ const LogInForm = ({
       </div>
       <BusySpinner isBusy={isBusy} />
     </form>
-
-    <CardText>
-      Already have an account? Click <a href="/login">here</a> to log in.
-    </CardText>
   </Card>
 );
 

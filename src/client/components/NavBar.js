@@ -1,6 +1,5 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import AppBar from 'material-ui/AppBar';
 import { connect } from 'react-redux';
 
 class NavBar extends React.Component {
@@ -11,7 +10,11 @@ class NavBar extends React.Component {
   render() {
     return (
       <div>
-        <div className="navBackground">Book Club</div>
+        <div className="navBackground">
+          <a href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            Book Club
+          </a>
+        </div>
         <div className="navWrapper">
           <div className="navLogo">Book Club</div>
           <div style={{ height: '100%' }}>

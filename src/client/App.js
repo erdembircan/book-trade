@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import * as Routes from './routes';
 import NavBar from './components/NavBar';
 import Body from './components/Body';
+import Notifications from './components/Notifications';
 
 const App = props => (
   <div>
@@ -15,6 +16,7 @@ const App = props => (
         <Route path="/login" component={Routes.LogIn} />
       </Switch>
     </Body>
+    <Notifications />
   </div>
 );
 

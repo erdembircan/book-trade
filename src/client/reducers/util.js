@@ -9,7 +9,7 @@ const isFetching = (state = false, action) => {
     case types.fetchFailure:
       return false;
     default:
-      return false;
+      return state;
   }
 };
 
@@ -20,6 +20,16 @@ const errors = (state = {}, action) => {
   return state;
 };
 
-export default combineReducers({ isFetching, errors });
+const notifications = (state = { message: '', open: false }, action) => {
+  if (action.type === types.sendNotification) {
+    return { message: action.message, open: action.message !== '' };
+  } else if (action.type === types.closeNotification) {
+    const temp = { open: false };
+    return { ...state, ...temp };
+  }
+  return state;
+};
+
+export default combineReducers({ isFetching, errors, notifications });
 
 export const getIsFetching = state => state.isFetching;

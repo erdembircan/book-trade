@@ -61,3 +61,8 @@ export const logUser = user => (dispatch, getState) => {
       return null;
     });
 };
+
+export const sendNotification = message => dispatch =>
+  dispatch({ type: types.sendNotification, message });
+
+export const closeNotification = () => dispatch => dispatch({ type: types.closeNotification });

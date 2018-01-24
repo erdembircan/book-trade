@@ -5,7 +5,10 @@ import { writeStoreToSession } from '../utils';
 const router = express.Router();
 
 router.get('/logout', (req, res) => {
-  writeStoreToSession(req, { user: undefined });
+  writeStoreToSession(req, {
+    user: undefined,
+    util: { notifications: { message: 'logged out', open: true } },
+  });
   res.redirect('/');
 });
 

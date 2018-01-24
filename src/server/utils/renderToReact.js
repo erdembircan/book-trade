@@ -7,14 +7,14 @@ import { getLoadableState } from 'loadable-components/server';
 import CustomMui from '../../shared/muiTheme';
 import App from '../../../src/client/App';
 import render from './render';
-import { writeStoreToSession } from './index';
+import { writeStoreToSession, flashRead } from './index';
 
 import reducer from '../../client/reducers';
 
 const renderToReact = async (req, preLoadedState = {}) => {
   const context = {};
 
-  const sessionStore = { ...req.session.store, ...preLoadedState };
+  const sessionStore = { ...flashRead(req, 'store'), ...preLoadedState };
 
   const store = createStore(reducer, sessionStore);
 

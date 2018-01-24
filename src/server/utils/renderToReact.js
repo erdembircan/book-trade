@@ -7,7 +7,7 @@ import { getLoadableState } from 'loadable-components/server';
 import CustomMui from '../../shared/muiTheme';
 import App from '../../../src/client/App';
 import render from './render';
-import { writeStoreToSession, flashRead } from './index';
+import { writeStoreToSession, flashRead, sanitizeSessionStore, flashWrite } from './index';
 
 import reducer from '../../client/reducers';
 
@@ -29,13 +29,16 @@ const renderToReact = async (req, preLoadedState = {}) => {
   );
 
   const state = store.getState();
-  writeStoreToSession(req, state);
 
   const loadable = await getLoadableState(app);
 
   const html = ReactDOMServer.renderToString(app);
 
-  return render(html, loadable, state);
+  const page = render(html, loadable, state);
+
+  sanitizeSessionStore(req, { util: { notifications: { message: '' } } });
+
+  return page;
 };
 
 export default renderToReact;

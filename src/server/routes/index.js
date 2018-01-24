@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/logout', (req, res) => {
   writeStoreToSession(req, {
     user: undefined,
-    util: { notifications: { message: 'logged out', open: true } },
+    util: { notifications: { message: 'logged out'} },
   });
   res.redirect('/');
 });

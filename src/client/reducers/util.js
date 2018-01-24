@@ -27,7 +27,7 @@ const notifications = (state = { message: '', open: false }, action) => {
     const temp = { open: false };
     return { ...state, ...temp };
   }
-  return state;
+  return { message: state.message, open: state.message !== '' };
 };
 
 export default combineReducers({ isFetching, errors, notifications });

@@ -22,3 +22,7 @@ export const storeNotification = (req, key) => {
 
   return { utils: { notifications: { message: notification } } };
 };
+
+export const sanitizeSessionStore = (req, sa) => {
+  req.session.store = { ...req.session.store, ...sa };
+};

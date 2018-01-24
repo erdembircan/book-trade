@@ -10,6 +10,7 @@ import zlib from 'zlib';
 import path from 'path';
 import mainRoute from './routes';
 import apiRoute from './routes/api';
+import messageCookie from './middleware/messageCookie';
 
 const compress = compression({
   flush: zlib.Z_PARTIAL_FLUSH,
@@ -30,6 +31,7 @@ export default class Server {
     this._app.use(compress);
 
     this._app.use(cookieParser());
+    this._app.use(messageCookie);
 
     this._app.use(session({
       secret: envData.getData('sessionSecret'),

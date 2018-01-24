@@ -1,14 +1,15 @@
 import express from 'express';
 import renderToReact from '../utils/renderToReact';
-import { writeStoreToSession } from '../utils';
+import { writeStoreToSession, flashWrite } from '../utils';
 
 const router = express.Router();
 
 router.get('/logout', (req, res) => {
   writeStoreToSession(req, {
     user: undefined,
-    util: { notifications: { message: 'logged out'} },
   });
+
+  flashWrite(req, 'message', 'logged out');
   res.redirect('/');
 });
 

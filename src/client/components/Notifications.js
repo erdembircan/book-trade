@@ -11,7 +11,7 @@ class Notifications extends React.Component {
   }
 
   componentDidMount() {
-    this.delayRender(2000);
+    this.delayRender(1000);
   }
 
   delayRender(time) {

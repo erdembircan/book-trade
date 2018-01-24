@@ -26,3 +26,16 @@ export const storeNotification = (req, key) => {
 export const sanitizeSessionStore = (req, sa) => {
   req.session.store = { ...req.session.store, ...sa };
 };
+
+export const writeToWindowGlobal = (pairs) => {
+  const temp = [];
+  Object.keys(pairs).map((key) => {
+    const value = typeof pairs[key] === 'object' ? JSON.stringify(pairs[key]) : pairs[key];
+    const preKey = `__${key.toUpperCase()}__`;
+
+    const stringVal = `${preKey}=${value}`;
+    temp.push(stringVal);
+  });
+
+  return `<script>${temp.join(';')}</script>`;
+};

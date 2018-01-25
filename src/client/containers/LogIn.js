@@ -2,6 +2,7 @@ import React from 'react';
 import LogInForm from '../components/LogInForm';
 import { connect } from 'react-redux';
 import { getIsFetching } from '../reducers';
+import Cookies from 'universal-cookie';
 import * as actions from '../actions';
 
 class LogIn extends React.Component {
@@ -17,6 +18,7 @@ class LogIn extends React.Component {
     this.processInput = this.processInput.bind(this);
     this.processForm = this.processForm.bind(this);
     this.clearForm = this.clearForm.bind(this);
+    this.cookies = new Cookies();
   }
 
   processInput(e) {
@@ -43,6 +45,8 @@ class LogIn extends React.Component {
     this.props.setError();
     this.props.logUser(this.state.user).then((res) => {
       if (res && res.response) {
+        this.cookies.set('auth.loc', res.response.token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
+
         window.location.replace('/');
       }
     });

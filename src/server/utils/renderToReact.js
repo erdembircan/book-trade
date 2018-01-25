@@ -10,8 +10,6 @@ import render from './render';
 import {
   writeStoreToSession,
   flashRead,
-  sanitizeSessionStore,
-  flashWrite,
   writeToWindowGlobal,
 } from './index';
 

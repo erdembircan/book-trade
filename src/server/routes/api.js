@@ -1,7 +1,9 @@
 import express from 'express';
 import validator from 'validator';
+import envData from 'env-data';
 import validateStrings from '../utils/stringValidate';
 import { checkLength, writeStoreToSession } from '../utils/index';
+import { sign } from '../utils/jwtUtils';
 
 require('../models/user');
 
@@ -103,8 +105,10 @@ router.post('/logUser', (req, res) => {
     User.findOne({ name, password })
       .then((user) => {
         if (user) {
+          const token = sign(user._id, envData.getData('jwtSecret'));
+
           writeStoreToSession(req, { user: { name: user.name } });
-          return res.send({ response: { user: { name: user.name } } });
+          return res.send({ response: { user: { name: user.name }, token } });
         }
         return res.send({
           errors: { password: 'invalid username/password' },

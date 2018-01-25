@@ -10,7 +10,7 @@ import zlib from 'zlib';
 import path from 'path';
 import mainRoute from './routes';
 import apiRoute from './routes/api';
-import messageCookie from './middleware/messageCookie';
+import autoLog from './middleware/autolog';
 
 const compress = compression({
   flush: zlib.Z_PARTIAL_FLUSH,
@@ -29,16 +29,15 @@ export default class Server {
       express.static(path.resolve(__dirname, '../client/img/favicon.ico')),
     );
     this._app.use(compress);
-
     this._app.use(cookieParser());
-    this._app.use(messageCookie);
-
     this._app.use(session({
       secret: envData.getData('sessionSecret'),
       resave: false,
       saveUninitialized: true,
       cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
     }));
+
+    this._app.use(autoLog);
 
     this._app.use(bodyParser.urlencoded({ extended: false }));
 

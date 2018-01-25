@@ -1,8 +1,8 @@
 import React from 'react';
-import LogInForm from '../components/LogInForm';
-import { connect } from 'react-redux';
-import { getIsFetching } from '../reducers';
 import Cookies from 'universal-cookie';
+import { connect } from 'react-redux';
+import LogInForm from '../components/LogInForm';
+import { getIsFetching } from '../reducers';
 import * as actions from '../actions';
 
 class LogIn extends React.Component {

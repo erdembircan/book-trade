@@ -7,8 +7,9 @@
     "client-analyse": "NODE_ENV=analyse webpack --config webpack.client.config.js",
     "build-server-dev": "webpack --config webpack.server.config.js --watch --progress --colors",
     "build-client-dev": "webpack --config webpack.client.config.js --watch --progress --colors",
-    "build-dev": "concurrently -n \"server,client,nodemon\" -c \"magenta,cyan,green\" \"npm run build-server-dev\" \"npm run build-client-dev\" \"npm run start-dev\"",
-    "start-dev": "NODE_ENV=development nodemon build/server/server.js",
+    "build-dev": "NODE_ENV=development concurrently -n \"server,client,nodemon\" -c \"magenta,cyan,green\" \"npm run build-server-dev\" \"npm run build-client-dev\" \"npm run serve\"",
+    "build-prod": "NODE_ENV=production concurrently -n \"server,client,nodemon\" -c \"magenta,cyan,green\" \"npm run build-server-dev\" \"npm run build-client-dev\" \"npm run serve\"",
+    "serve": "nodemon build/server/server.js",
     "test": "jest --verbose",
     "devServer": "webpack-dev-server --config webpack.client.config.js --open"
   },

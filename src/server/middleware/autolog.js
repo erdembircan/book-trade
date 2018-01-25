@@ -15,12 +15,12 @@ const autolog = (req, res, next) => {
             writeStoreToSession(req, { user: { name: user.name } });
             next();
           } else {
-            flashWrite(req, message, 'an error occured');
+            flashWrite(req, 'message', 'an error occured');
             next();
           }
         })
         .catch((err) => {
-          flashWrite(req, message, 'an error occured');
+          flashWrite(req, 'message', 'an error occured');
           next();
         });
     });

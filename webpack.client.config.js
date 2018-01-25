@@ -18,6 +18,13 @@ if (process.env.NODE_ENV === 'analyse') {
   plugins.push(new BundleAnalyzerPlugin());
 }
 
+if (process.env.NODE_ENV === 'production') {
+  plugins.push(new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify('production'),
+  }));
+  plugins.push(new webpack.optimize.UglifyJsPlugin());
+}
+
 const config = {
   context: SRC,
   target: 'web',

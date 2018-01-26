@@ -17,6 +17,7 @@ class Book extends React.Component {
       <div className="book">
         <ImageLoader imgSrc={this.props.imgSource} width="70px" />
         <div>{this.props.title}</div>
+        <div>{this.props.author}</div>
         <div>{this.props.year}</div>
       </div>
     );

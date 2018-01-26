@@ -143,17 +143,22 @@ router.get(
     }).then(({ data }) => {
       const cleanedString = data.replace('\ufeff', '');
       parseString(cleanedString, (err, result) => {
-        const jsonResp = JSON.parse(JSON.stringify(result)).GoodreadsResponse.search[0].results[0].work.map((item) => {
-          const temp = {};
+        const jsonRespMap = JSON.parse(JSON.stringify(result)).GoodreadsResponse.search[0]
+          .results[0].work;
+        if (jsonRespMap) {
+          const jsonResp = jsonRespMap.map((item) => {
+            const temp = {};
 
-          temp.title = item.best_book[0].title[0];
-          temp.author = item.best_book[0].author[0].name[0];
-          temp.image = item.best_book[0].small_image_url[0];
+            temp.title = item.best_book[0].title[0];
+            temp.author = item.best_book[0].author[0].name[0];
+            temp.image = item.best_book[0].small_image_url[0];
 
-          return temp;
-        });
+            return temp;
+          });
 
-        res.send(jsonResp.slice(0, results));
+          return res.send(jsonResp.slice(0, results));
+        }
+        return res.send();
       });
     });
   },

@@ -87,9 +87,27 @@ html, body
     margin: 20px
     
 .busyBar
+  display: flex
+  align-items: center
+  justify-content: center
   animation: rotateAround .5s linear infinite
 
 @keyframes rotateAround
   from {transform: rotate(0deg)}
   to {transform: rotate(360deg)}
 
+.bookHolder
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  border: 2px solid $accent2-color
+  padding: 10px
+
+.book
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  padding: 10px
+  background-color : $accent-color
+  margin: 10px

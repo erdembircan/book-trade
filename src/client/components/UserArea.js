@@ -3,6 +3,7 @@ import { Card, CardTitle, CardHeader } from 'material-ui/Card';
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import RaisedButton from 'material-ui/RaisedButton';
 import CardText from 'material-ui/Card/CardText';
+import BookHolder from './BookHolder';
 
 class UserArea extends React.Component {
   constructor(props) {
@@ -23,10 +24,12 @@ class UserArea extends React.Component {
           </ToolbarGroup>
           <ToolbarGroup>
             <ToolbarSeparator />
-            <RaisedButton label="add books" primary />
+            <RaisedButton label="add book" primary />
           </ToolbarGroup>
         </Toolbar>
-        <CardText>test</CardText>
+        <CardText>
+          <BookHolder />
+        </CardText>
       </Card>
     );
   }

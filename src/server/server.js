@@ -20,6 +20,8 @@ export default class Server {
   constructor(port) {
     this._app = express();
 
+    this._app.set('json spaces', 2);
+
     this._app.use(helmet());
 
     this._app.set('port', port);

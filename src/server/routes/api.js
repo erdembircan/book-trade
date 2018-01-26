@@ -1,9 +1,14 @@
+import { parseString } from 'xml2js';
+import axios from 'axios';
 import express from 'express';
 import validator from 'validator';
 import envData from 'env-data';
 import validateStrings from '../utils/stringValidate';
 import { checkLength, writeStoreToSession, flashWrite } from '../utils/index';
 import { sign } from '../utils/jwtUtils';
+import authCheck from '../middleware/authCheck';
+import getReqAdress from '../utils/grReqFormat';
+import sData from '../sData';
 
 require('../models/user');
 
@@ -119,5 +124,39 @@ router.post('/logUser', (req, res) => {
       .catch(err => res.send({ errors: { global: 'server error' } }));
   }
 });
+
+router.get(
+  '/getBook',
+  authCheck({ redirectUrl: '/', message: 'you need to be logged in' }),
+  (req, res) => {
+    const { bookName } = req.query;
+    const results = req.query.results || 5;
+    if (!bookName) {
+      return res.send(null);
+    }
+
+    const grAdress = getReqAdress({ q: bookName, key: sData.goodReadsAPIKey });
+
+    axios({
+      method: 'get',
+      url: grAdress,
+    }).then(({ data }) => {
+      const cleanedString = data.replace('\ufeff', '');
+      parseString(cleanedString, (err, result) => {
+        const jsonResp = JSON.parse(JSON.stringify(result)).GoodreadsResponse.search[0].results[0].work.map((item) => {
+          const temp = {};
+
+          temp.title = item.best_book[0].title[0];
+          temp.author = item.best_book[0].author[0].name[0];
+          temp.image = item.best_book[0].small_image_url[0];
+
+          return temp;
+        });
+
+        res.send(jsonResp.slice(0, results));
+      });
+    });
+  },
+);
 
 export default router;

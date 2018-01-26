@@ -4,6 +4,8 @@ import renderToReact from '../utils/renderToReact';
 import { writeStoreToSession, flashWrite } from '../utils';
 import { verify } from '../utils/jwtUtils';
 
+require('../models/user');
+
 const router = express.Router();
 
 router.get('/logout', (req, res) => {

@@ -4,10 +4,18 @@ import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-
 import RaisedButton from 'material-ui/RaisedButton';
 import CardText from 'material-ui/Card/CardText';
 import BookHolder from './BookHolder';
+import AddBookModal from './AddBookModal';
 
 class UserArea extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      addBookModalOpen: false,
+    };
+
+    this.handleAddBookModal = state => (event) => {
+      this.setState({ addBookModalOpen: state });
+    };
   }
 
   render() {
@@ -24,12 +32,13 @@ class UserArea extends React.Component {
           </ToolbarGroup>
           <ToolbarGroup>
             <ToolbarSeparator />
-            <RaisedButton label="add book" primary />
+            <RaisedButton label="add book" primary onClick={this.handleAddBookModal(true)} />
           </ToolbarGroup>
         </Toolbar>
         <CardText>
           <BookHolder />
         </CardText>
+        <AddBookModal open={this.state.addBookModalOpen} openHandler={this.handleAddBookModal} />
       </Card>
     );
   }

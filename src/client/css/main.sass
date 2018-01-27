@@ -106,12 +106,14 @@ html, body
 .book
   display: flex
   flex-direction: column
-  justify-content: center
   align-items: center
   padding: 10px
   background-color : $accent-color
   margin: 10px
   cursor: pointer
   transition: all .2s ease-out
+  text-align: center
+  text-overflow: ellipsis
+  max-width: 100px
   &:hover
     background-color: darken($accent-color , 10)

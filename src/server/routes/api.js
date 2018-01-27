@@ -126,7 +126,7 @@ router.post('/logUser', (req, res) => {
 });
 
 router.get(
-  '/getBook',
+  '/getbook',
   authCheck({ redirectUrl: '/', message: 'you need to be logged in' }),
   (req, res) => {
     const { bookName } = req.query;

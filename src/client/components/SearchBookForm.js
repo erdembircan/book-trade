@@ -8,7 +8,7 @@ import Book from './Book';
 const SearchBookForm = ({
   onSubmit, onChange, book, isBusy, results,
 }) => (
-  <Card className="formContainer" style={{ backgroundColor: 'seashell', overflow: 'auto'}}>
+  <Card className="formContainer" style={{ backgroundColor: 'seashell' }}>
     <CardTitle title="Search for a book" subtitle="Fill in the form" />
     <form onSubmit={onSubmit}>
       <div>
@@ -25,6 +25,7 @@ const SearchBookForm = ({
         <RaisedButton type="submit" label="Search" primary style={{ margin: '10px' }} />
       </div>
     </form>
+    <BusySpinner isBusy={isBusy} />
     <div className="bookHolder">
       {results.map(item => (
         <Book title={item.title} year={item.year} author={item.author} imgSource={item.image} />

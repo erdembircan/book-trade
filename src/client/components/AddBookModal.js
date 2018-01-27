@@ -49,7 +49,12 @@ class AddBookModal extends React.Component {
     ];
 
     return (
-      <Dialog title="Add a book" modal open={this.props.open} actions={actions}>
+      <Dialog
+        title="Add a book"
+        modal
+        open={this.props.open}
+        actions={actions}
+      >
         <SearchBookForm
           book={{ title: this.state.book.title }}
           onChange={this.processInput}

@@ -62,6 +62,30 @@ export const logUser = user => (dispatch, getState) => {
     });
 };
 
+export const queryBook = title => (dispatch, getState) => {
+  if (getIsFetching(getState())) return;
+
+  dispatch({ type: types.fetchRequest });
+  return axios({
+    method: 'get',
+    url: `/api/getbook?bookName=${title}`,
+  })
+    .then((res) => {
+      if (res) {
+        dispatch({ type: types.fetchSuccess });
+        return { response: res.data };
+      }
+      dispatch({ type: types.fetchFailure });
+      sendNotification('an error occured...')(dispatch);
+      return null;
+    })
+    .catch((err) => {
+      dispatch((type: types.fetchFailure));
+      dispatch({ type: types.sendNotification, message: 'an error occured...' });
+      return null;
+    });
+};
+
 export const sendNotification = message => dispatch =>
   dispatch({ type: types.sendNotification, message });
 

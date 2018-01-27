@@ -149,13 +149,16 @@ router.get(
           const jsonResp = jsonRespMap.map((item) => {
             const temp = {};
 
+            temp.id = item.id[0]._;
             temp.title = item.best_book[0].title[0];
             temp.author = item.best_book[0].author[0].name[0];
+            temp.year = item.original_publication_year[0]._;
             temp.image = item.best_book[0].small_image_url[0];
 
             return temp;
           });
 
+          // return res.send(jsonRespMap);
           return res.send(jsonResp.slice(0, results));
         }
         return res.send();

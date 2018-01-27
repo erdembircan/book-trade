@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import SearchBookForm from './SearchBookForm';
+import { getIsFetching } from '../reducers';
+import * as actions from '../actions';
 
 class AddBookModal extends React.Component {
   constructor(props) {
@@ -28,13 +31,11 @@ class AddBookModal extends React.Component {
 
   submitForm(e) {
     e.preventDefault();
-    axios({
-      method: 'get',
-      url: `/api/getbook?bookName=${this.state.book.title}`,
-    }).then((res) => {
-      console.log(res.data);
-      this.setState({ results: [] });
-      this.setState({ results: res.data });
+    this.props.queryBook(this.state.book.title).then((res) => {
+      if (res && res.response) {
+        this.setState({ results: [] });
+        this.setState({ results: res.response });
+      }
     });
   }
 
@@ -49,21 +50,21 @@ class AddBookModal extends React.Component {
     ];
 
     return (
-      <Dialog
-        title="Add a book"
-        modal
-        open={this.props.open}
-        actions={actions}
-      >
+      <Dialog title="Add a book" modal open={this.props.open} actions={actions}>
         <SearchBookForm
           book={{ title: this.state.book.title }}
           onChange={this.processInput}
           onSubmit={this.submitForm}
           results={this.state.results}
+          isBusy={this.props.isFetching}
         />
       </Dialog>
     );
   }
 }
 
-export default AddBookModal;
+const mapStateToProps = state => ({
+  isFetching: getIsFetching(state),
+});
+
+export default connect(mapStateToProps, actions)(AddBookModal);

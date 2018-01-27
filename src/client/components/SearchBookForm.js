@@ -22,7 +22,13 @@ const SearchBookForm = ({
         />
       </div>
       <div className="buttonContainer">
-        <RaisedButton type="submit" label="Search" primary style={{ margin: '10px' }} />
+        <RaisedButton
+          type="submit"
+          label="Search"
+          primary
+          style={{ margin: '10px' }}
+          disabled={isBusy}
+        />
       </div>
     </form>
     <BusySpinner isBusy={isBusy} />

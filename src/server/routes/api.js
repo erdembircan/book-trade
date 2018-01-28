@@ -167,4 +167,8 @@ router.get(
   },
 );
 
+router.post('/addbook', authCheck(), (req, res) => {
+  const book = JSON.parse(req.body.book);
+});
+
 export default router;

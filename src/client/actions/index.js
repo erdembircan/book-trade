@@ -90,3 +90,13 @@ export const sendNotification = message => dispatch =>
   dispatch({ type: types.sendNotification, message });
 
 export const closeNotification = () => dispatch => dispatch({ type: types.closeNotification });
+
+export const selectBook = params => dispatch => dispatch({ type: types.selectBook, book: params });
+
+export const addBook = book => (dispatch, getState) => {
+  if (getIsFetching(getState())) return;
+
+  dispatch({ type: types.fetchRequest });
+  const content = `book=${JSON.stringify(book)}`;
+  return axios.post('/api/addbook', content);
+};

@@ -13,10 +13,11 @@ class AddBookModal extends React.Component {
     this.state = {
       book: { title: '' },
       results: [],
-      selected: { title: '' },
     };
     this.processInput = this.processInput.bind(this);
     this.submitForm = this.submitForm.bind(this);
+    this.bookClicked = this.bookClicked.bind(this);
+    this.addBook = this.addBook.bind(this);
   }
 
   processInput(e) {
@@ -39,13 +40,29 @@ class AddBookModal extends React.Component {
     });
   }
 
+  bookClicked(params) {
+    this.props.selectBook({
+      title: params.title,
+      author: params.author,
+      year: params.year,
+      image: params.imgSource,
+      id: params.id,
+    });
+  }
+
+  addBook() {
+    this.props.addBook(this.props.selected).then((resp) => {
+      console.log(resp);
+    });
+  }
+
   render() {
     const actions = [
       <FlatButton label="Cancel" onClick={this.props.openHandler(false)} />,
       <FlatButton
         label="Add Book"
-        onClick={this.props.openHandler(false)}
-        disabled={this.state.selected.title === ''}
+        onClick={this.addBook}
+        disabled={this.props.isFetching || this.props.selected.title === undefined}
       />,
     ];
 
@@ -57,6 +74,8 @@ class AddBookModal extends React.Component {
           onSubmit={this.submitForm}
           results={this.state.results}
           isBusy={this.props.isFetching}
+          onClick={this.bookClicked}
+          selected={this.props.selected.id}
         />
       </Dialog>
     );
@@ -65,6 +84,7 @@ class AddBookModal extends React.Component {
 
 const mapStateToProps = state => ({
   isFetching: getIsFetching(state),
+  selected: state.book.selected,
 });
 
 export default connect(mapStateToProps, actions)(AddBookModal);

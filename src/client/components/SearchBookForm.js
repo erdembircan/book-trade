@@ -6,7 +6,7 @@ import BusySpinner from './BusySpinner';
 import Book from './Book';
 
 const SearchBookForm = ({
-  onSubmit, onChange, book, isBusy, results,
+  onSubmit, onChange, book, isBusy, results, onClick, selected,
 }) => (
   <Card className="formContainer" style={{ backgroundColor: 'seashell' }}>
     <CardTitle title="Search for a book" subtitle="Fill in the form" />
@@ -34,7 +34,16 @@ const SearchBookForm = ({
     <BusySpinner isBusy={isBusy} />
     <div className="bookHolder">
       {results.map(item => (
-        <Book title={item.title} year={item.year} author={item.author} imgSource={item.image} />
+        <Book
+          title={item.title}
+          key={item.id}
+          year={item.year}
+          author={item.author}
+          imgSource={item.image}
+          onClick={onClick}
+          selectedId={selected}
+          id={item.id}
+        />
       ))}
     </div>
   </Card>

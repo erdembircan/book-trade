@@ -9,7 +9,7 @@ const writeMessageAndRedirect = (req, res, url, message) => {
   res.redirect(url);
 };
 
-const authCheck = (params = { redirectUrl: '/', message: '' }) => (req, res, next) => {
+const authCheck = (params = { redirectUrl: '/', message: 'you need to be logged in' }) => (req, res, next) => {
   const authCookie = req.cookies['auth.loc'];
 
   if (!authCookie) {

@@ -8,22 +8,27 @@ const autolog = (req, res, next) => {
   const authCookie = req.cookies['auth.loc'];
 
   if (authCookie) {
-    verify(authCookie, envData.getData('jwtSecret')).then((data) => {
-      User.findOne({ _id: data })
-        .then((user) => {
-          if (user) {
-            writeStoreToSession(req, { user: { name: user.name } });
-            next();
-          } else {
+    verify(authCookie, envData.getData('jwtSecret'))
+      .then((data) => {
+        User.findOne({ _id: data })
+          .then((user) => {
+            if (user) {
+              writeStoreToSession(req, { user: { name: user.name } });
+              next();
+            } else {
+              flashWrite(req, 'message', 'an error occured');
+              next();
+            }
+          })
+          .catch((err) => {
             flashWrite(req, 'message', 'an error occured');
             next();
-          }
-        })
-        .catch((err) => {
-          flashWrite(req, 'message', 'an error occured');
-          next();
-        });
-    });
+          });
+      })
+      .catch((err) => {
+        flashWrite(req, 'message', 'an error occured');
+        next();
+      });
   } else next();
 };
 

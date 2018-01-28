@@ -3,6 +3,7 @@ import envData from 'env-data';
 import renderToReact from '../utils/renderToReact';
 import { writeStoreToSession, flashWrite } from '../utils';
 import { verify } from '../utils/jwtUtils';
+import authCheck from '../middleware/authCheck';
 
 require('../models/user');
 
@@ -26,6 +27,7 @@ router.get('/status', (req, res) => {
     })
     .catch(err => res.redirect('/'));
 });
+
 
 router.get('*', async (req, res) => {
   res.send(await renderToReact(req));

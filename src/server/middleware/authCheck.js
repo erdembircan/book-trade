@@ -1,6 +1,7 @@
 import envData from 'env-data';
-import { flashWrite } from '../utils';
+import { flashWrite, writeStoreToSession } from '../utils';
 import { verify } from '../utils/jwtUtils';
+require('../models/user');
 
 const User = require('mongoose').model('User');
 
@@ -9,7 +10,11 @@ const writeMessageAndRedirect = (req, res, url, message) => {
   res.redirect(url);
 };
 
-const authCheck = (params = { redirectUrl: '/', message: 'you need to be logged in' }) => (req, res, next) => {
+const authCheck = (params = { redirectUrl: '/', message: 'you need to be logged in' }) => (
+  req,
+  res,
+  next,
+) => {
   const authCookie = req.cookies['auth.loc'];
 
   if (!authCookie) {
@@ -22,13 +27,25 @@ const authCheck = (params = { redirectUrl: '/', message: 'you need to be logged 
           if (user) {
             return next();
           }
+          writeStoreToSession(req, {
+            user: undefined,
+          });
           return writeMessageAndRedirect(req, res, params.redirectUrl, params.message);
         });
       } else {
+        writeStoreToSession(req, {
+          user: undefined,
+        });
         return writeMessageAndRedirect(req, res, params.redirectUrl, params.message);
       }
     })
-    .catch(err => writeMessageAndRedirect(req, res, params.redirectUrl, params.message));
+    .catch((err) => {
+      writeStoreToSession(req, {
+        user: undefined,
+      });
+
+      return writeMessageAndRedirect(req, res, params.redirectUrl, params.message);
+    });
 };
 
 export default authCheck;

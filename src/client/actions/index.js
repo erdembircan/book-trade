@@ -98,5 +98,33 @@ export const addBook = book => (dispatch, getState) => {
 
   dispatch({ type: types.fetchRequest });
   const content = `book=${JSON.stringify(book)}`;
-  return axios.post('/api/addbook', content);
+  return axios
+    .post('/api/addbook', content)
+    .then((resp) => {
+      dispatch({ type: types.fetchSuccess });
+      return dispatch(getUserBooks());
+      // return resp.data;
+    })
+    .catch((err) => {
+      dispatch({ type: types.fetchFailure });
+      sendNotification(err)(dispatch);
+      return { error: err };
+    });
+};
+
+export const setUserBooks = books => dispatch => dispatch({ type: types.setUserBooks, books });
+
+export const getUserBooks = () => (dispatch, getState) => {
+  if (getIsFetching(getState())) return;
+
+  dispatch({ type: types.fetchRequest });
+
+  return axios({
+    method: 'get',
+    url: '/api/userbooks',
+  }).then((resp) => {
+    dispatch({ type: types.fetchSuccess });
+    const books = resp.data.books;
+    return dispatch(setUserBooks(books));
+  });
 };

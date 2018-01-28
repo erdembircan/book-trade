@@ -7,6 +7,7 @@ const types = {
   sendNotification: 'SEND_NOTIFICATION',
   closeNotification: 'CLOSE_NOTIFICATION',
   selectBook: 'SELECT_BOOK',
+  setUserBooks: 'SET_USER_BOOKS',
 };
 
 export default types;

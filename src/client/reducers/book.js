@@ -8,4 +8,11 @@ const selected = (state = {}, action) => {
   return state;
 };
 
-export default combineReducers({ selected });
+const userbooks = (state = [], action) => {
+  if (action.type === types.setUserBooks) {
+    return [...action.books];
+  }
+  return state;
+};
+
+export default combineReducers({ selected, userbooks });

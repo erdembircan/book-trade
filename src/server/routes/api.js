@@ -5,12 +5,13 @@ import validator from 'validator';
 import envData from 'env-data';
 import validateStrings from '../utils/stringValidate';
 import { checkLength, writeStoreToSession, flashWrite } from '../utils/index';
-import { sign } from '../utils/jwtUtils';
+import { sign, verify } from '../utils/jwtUtils';
 import authCheck from '../middleware/authCheck';
 import getReqAdress from '../utils/grReqFormat';
 import sData from '../sData';
 
 require('../models/user');
+require('../models/bookpool');
 
 const User = require('mongoose').model('User');
 
@@ -69,6 +70,7 @@ router.post('/addUser', (req, res) => {
           user: {
             name: user.name,
           },
+          token: sign(user._id, envData.getData('jwtSecret')),
         },
       });
     });
@@ -111,8 +113,6 @@ router.post('/logUser', (req, res) => {
       .then((user) => {
         if (user) {
           const token = sign(user._id, envData.getData('jwtSecret'));
-
-          flashWrite(req, 'message', 'logged in');
 
           writeStoreToSession(req, { user: { name: user.name } });
           return res.send({ response: { user: { name: user.name }, token } });
@@ -167,8 +167,38 @@ router.get(
   },
 );
 
+router.get('/userbooks', authCheck(), (req, res) => {
+  verify(req.cookies['auth.loc'], envData.getData('jwtSecret'))
+    .then((data) => {
+      User.findOne({ _id: data }, { books: [], _id: 0 })
+        .then((books) => {
+          res.send(books);
+        })
+        .catch((err) => {
+          res.send({ error: err });
+        });
+    })
+    .catch((err) => {
+      res.send({ error: err });
+    });
+});
+
 router.post('/addbook', authCheck(), (req, res) => {
   const book = JSON.parse(req.body.book);
+
+  verify(req.cookies['auth.loc'], envData.getData('jwtSecret'))
+    .then((data) => {
+      User.findOne({ _id: data }).then((user) => {
+        user.books.push(book);
+        user
+          .save()
+          .then((saved) => {
+            res.send({ status: 200 });
+          })
+          .catch(err => res.send({ error: err }));
+      });
+    })
+    .catch(err => res.send({ error: err }));
 });
 
 export default router;

@@ -1,4 +1,5 @@
 import React from 'react';
+import Cookies from 'universal-cookie';
 import SignupForm from '../components/SignUpForm';
 import { connect } from 'react-redux';
 import { getIsFetching } from '../reducers';
@@ -17,6 +18,7 @@ class SignUp extends React.Component {
     this.processInput = this.processInput.bind(this);
     this.processForm = this.processForm.bind(this);
     this.clearForm = this.clearForm.bind(this);
+    this.cookies = new Cookies();
   }
 
   processInput(e) {
@@ -43,6 +45,7 @@ class SignUp extends React.Component {
     this.props.setError();
     this.props.addUser(this.state.user).then((res) => {
       if (res && res.response) {
+        this.cookies.set('auth.loc', res.response.token, { maxAge: 30 * 24 * 60 * 60 * 1000 });
         window.location.replace('/');
       }
     });

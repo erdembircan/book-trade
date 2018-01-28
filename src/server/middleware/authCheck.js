@@ -1,8 +1,9 @@
 import envData from 'env-data';
 import { flashWrite, writeStoreToSession } from '../utils';
 import { verify } from '../utils/jwtUtils';
-require('../models/user');
 
+require('../models/user');
+require('../models/bookpool');
 const User = require('mongoose').model('User');
 
 const writeMessageAndRedirect = (req, res, url, message) => {

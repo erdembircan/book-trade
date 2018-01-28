@@ -1,26 +1,43 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Book from './Book';
+import { getIsFetching } from '../reducers';
+import * as actions from '../actions';
 
 class BookHolder extends React.Component {
   constructor(props) {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.getUserBooks();
+  }
+
   render() {
-    const books = [];
-
-    for (let i = 0; i < 10; i++) {
-      books.push(<Book
-        title="Hobbit"
-        author="J.R.R. Tolkien"
-        year="1937"
-        imgSource="https://cdn.pastemagazine.com/www/system/images/photo_albums/hobbit-book-covers/large/photo_5653_0-8.jpg"
-        id={'12311214'}
-      />);
-    }
-
-    return <div className="bookHolder">{books}</div>;
+    return (
+      <div className="bookHolder">
+        {this.props.books.length > 0 ? (
+          this.props.books.map(book => (
+            <Book
+              title={book.title}
+              author={book.author}
+              year={book.year}
+              imgSource={book.image}
+              id={book.id}
+              key={book.id}
+            />
+          ))
+        ) : (
+          <p style={{color: 'grey'}}>You don't have any books...</p>
+        )}
+      </div>
+    );
   }
 }
 
-export default BookHolder;
+const mapStateToProps = state => ({
+  isFetching: getIsFetching(state),
+  books: state.book.userbooks,
+});
+
+export default connect(mapStateToProps, actions)(BookHolder);

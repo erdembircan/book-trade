@@ -1,3 +1,6 @@
+import crypto from 'crypto';
+import envData from 'env-data';
+
 export const checkLength = (min, max) => str => str.length >= min && str.length <= max;
 
 export const writeStoreToSession = (req, data) => {
@@ -38,4 +41,13 @@ export const writeToWindowGlobal = (pairs) => {
   });
 
   return `<script>${temp.join(';')}</script>`;
+};
+
+export const hashString = (value) => {
+  const hash = crypto
+    .createHmac('sha256', envData.getData('sha256Secret'))
+    .update(value)
+    .digest('hex');
+
+  return hash;
 };

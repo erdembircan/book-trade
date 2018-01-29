@@ -4,7 +4,7 @@ import express from 'express';
 import validator from 'validator';
 import envData from 'env-data';
 import validateStrings from '../utils/stringValidate';
-import { checkLength, writeStoreToSession, flashWrite } from '../utils/index';
+import { checkLength, writeStoreToSession, flashWrite, hashString } from '../utils/index';
 import { sign, verify } from '../utils/jwtUtils';
 import authCheck from '../middleware/authCheck';
 import getReqAdress from '../utils/grReqFormat';
@@ -84,6 +84,8 @@ router.post('/logUser', (req, res) => {
 
   const { name, password } = req.body;
 
+  const hashedPassword = hashString(req.body.password);
+
   const errors = validateStrings([
     {
       name: 'name',
@@ -109,7 +111,7 @@ router.post('/logUser', (req, res) => {
       errors,
     });
   } else {
-    User.findOne({ name, password })
+    User.findOne({ name, password: hashedPassword })
       .then((user) => {
         if (user) {
           const token = sign(user._id, envData.getData('jwtSecret'));

@@ -3,10 +3,8 @@ import envData from 'env-data';
 import renderToReact from '../utils/renderToReact';
 import { writeStoreToSession, flashWrite } from '../utils';
 import { verify } from '../utils/jwtUtils';
-import authCheck from '../middleware/authCheck';
 
 require('../models/user');
-require('../models/bookpool');
 
 const router = express.Router();
 

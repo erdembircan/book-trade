@@ -11,7 +11,6 @@ import getReqAdress from '../utils/grReqFormat';
 import sData from '../sData';
 
 require('../models/user');
-require('../models/bookpool');
 
 const User = require('mongoose').model('User');
 
@@ -201,6 +200,33 @@ router.post('/addbook', authCheck(), (req, res) => {
       });
     })
     .catch(err => res.send({ error: err }));
+});
+
+router.get('/bookpool', (req, res) => {
+  User.find({}, { books: 1, _id: 0 }).then((resp) => {
+    const bookPool = [];
+
+    resp.map(item =>
+      item.books.map((book) => {
+        bookPool.push(book);
+      }));
+
+    const reduced = [];
+
+    bookPool.reduce((a, b) => {
+      const index = a.map(item => item.id).indexOf(b.id);
+
+      if (index >= 0) {
+        a[index].count++;
+      } else {
+        a.push({ ...b, ...{ count: 1 } });
+      }
+
+      return a;
+    }, reduced);
+
+    res.send(reduced);
+  });
 });
 
 export default router;

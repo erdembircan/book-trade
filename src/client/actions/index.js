@@ -128,3 +128,21 @@ export const getUserBooks = () => (dispatch, getState) => {
     return dispatch(setUserBooks(books));
   });
 };
+
+export const getBookPool = () => (dispatch, getState) => {
+  return axios({
+    method: 'get',
+    url: '/api/bookpool',
+  })
+    .then((resp) => {
+      if (resp && resp.data) {
+        return resp.data;
+      }
+      sendNotification('error getting bookpool')(dispatch);
+      return null;
+    })
+    .catch((err) => {
+      sendNotification(err)(dispatch);
+      return null;
+    });
+};

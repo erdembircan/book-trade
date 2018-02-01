@@ -9,19 +9,20 @@ import Book from './Book';
 const BookHolder = props => (
   <div className="bookHolder">
     {props.books.length > 0 ? (
-        props.books.map(book => (
-          <Book
-            title={book.title}
-            author={book.author}
-            year={book.year}
-            imgSource={book.image}
-            id={book.id}
-            key={book.id}
-          />
-        ))
-      ) : (
-        <p style={{ color: 'grey' }}>You don't have any books...</p>
-      )}
+      props.books.map(book => (
+        <Book
+          title={book.title}
+          author={book.author}
+          year={book.year}
+          imgSource={book.image}
+          id={book.id}
+          key={book.id}
+          onClick={props.onClick(book)}
+        />
+      ))
+    ) : (
+      <p style={{ color: 'grey' }}>You don't have any books...</p>
+    )}
   </div>
 );
 

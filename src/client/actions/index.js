@@ -129,8 +129,8 @@ export const getUserBooks = () => (dispatch, getState) => {
   });
 };
 
-export const getBookPool = () => (dispatch, getState) => {
-  return axios({
+export const getBookPool = () => (dispatch, getState) =>
+  axios({
     method: 'get',
     url: '/api/bookpool',
   })
@@ -145,4 +145,15 @@ export const getBookPool = () => (dispatch, getState) => {
       sendNotification(err)(dispatch);
       return null;
     });
+
+export const makeRequest = bookId => (dispatch) => {
+  const content = `bookid=${bookId}`;
+
+  return axios.post('/api/makerequest', content).then(({ data }) => {
+    if (data.response) {
+      sendNotification('book requested')(dispatch);
+    } else {
+      sendNotification('an error occured')(dispatch);
+    }
+  });
 };

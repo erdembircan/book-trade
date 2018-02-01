@@ -11,8 +11,10 @@ import getReqAdress from '../utils/grReqFormat';
 import sData from '../sData';
 
 require('../models/user');
+require('../models/requests');
 
 const User = require('mongoose').model('User');
+const Requests = require('mongoose').model('Requests');
 
 const router = new express.Router();
 
@@ -227,6 +229,38 @@ router.get('/bookpool', (req, res) => {
 
     res.send(reduced);
   });
+});
+
+router.post('/makerequest', authCheck(), async (req, res) => {
+  const { bookid } = req.body;
+  if (!bookid) {
+    return res.send({ error: 'invalid request' });
+  }
+
+  try {
+    const authCookie = req.cookies['auth.loc'];
+
+    const userId = await verify(authCookie, envData.getData('jwtSecret'));
+
+    if (userId) {
+      const reqUser = await User.findOne({ _id: userId });
+
+      const owner = await User.findOne({ books: { $elemMatch: { id: bookid } } });
+
+      const request = new Requests({
+        owner: owner.name,
+        requester: reqUser.name,
+        bookId: bookid,
+        status: 'waiting',
+      });
+
+      const sReq = await request.save();
+
+      res.send({ response: sReq });
+    }
+  } catch (err) {
+    res.send({ error: 'an error occured' });
+  }
 });
 
 export default router;

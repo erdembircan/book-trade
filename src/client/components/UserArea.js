@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import { Card, CardTitle, CardHeader } from 'material-ui/Card';
 import { Tab, Tabs } from 'material-ui/Tabs';
@@ -22,6 +23,9 @@ class UserArea extends React.Component {
     };
 
     this.getPoolBooks = this.getPoolBooks.bind(this);
+    this.requestBook = book => (event) => {
+      this.props.makeRequest(book.id);
+    };
   }
   componentDidMount() {
     this.props.getUserBooks().then((resp) => {
@@ -43,6 +47,7 @@ class UserArea extends React.Component {
       }
     });
   }
+
   render() {
     return (
       <Card>
@@ -63,7 +68,7 @@ class UserArea extends React.Component {
               </ToolbarGroup>
             </Toolbar>
             <CardText>
-              <BookHolder books={this.props.userbooks} />
+              <BookHolder books={this.props.userbooks} onClick={() => {}} />
             </CardText>
             <AddBookModal
               open={this.state.addBookModalOpen}
@@ -81,7 +86,7 @@ class UserArea extends React.Component {
               </ToolbarGroup>
             </Toolbar>
             <CardText>
-              <BookHolder books={this.state.bookpool} />
+              <BookHolder books={this.state.bookpool} onClick={this.requestBook} />
             </CardText>
           </Tab>
         </Tabs>

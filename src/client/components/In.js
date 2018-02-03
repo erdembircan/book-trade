@@ -1,25 +1,25 @@
 import React from 'react';
 
-const Out = props => (
+const In = props => (
   <table style={{ width: '100%' }}>
     <thead>
       <tr>
-        <th>Owner</th>
+        <th>Requester</th>
         <th>Book</th>
-        <th>Status</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
       {props.requests &&
         props.requests.map(req => (
           <tr key={req.bookId}>
-            <td>{req.owner}</td>
+            <td>{req.requester}</td>
             <td>{req.bookTitle}</td>
-            <td>{req.status}</td>
+            <td>Action</td>
           </tr>
         ))}
     </tbody>
   </table>
 );
 
-export default Out;
+export default In;

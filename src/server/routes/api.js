@@ -232,8 +232,8 @@ router.get('/bookpool', (req, res) => {
 });
 
 router.post('/makerequest', authCheck(), async (req, res) => {
-  const { bookid } = req.body;
-  if (!bookid) {
+  const { bookid, booktitle } = req.body;
+  if (!bookid || !booktitle) {
     return res.send({ error: 'invalid request' });
   }
 
@@ -251,6 +251,7 @@ router.post('/makerequest', authCheck(), async (req, res) => {
         owner: owner.name,
         requester: reqUser.name,
         bookId: bookid,
+        bookTitle: booktitle,
         status: 'waiting',
       });
 
@@ -261,6 +262,29 @@ router.post('/makerequest', authCheck(), async (req, res) => {
   } catch (err) {
     res.send({ error: 'an error occured' });
   }
+});
+
+router.get('/trades', authCheck(), async (req, res) => {
+  const type = req.query.type || 'in';
+
+  try {
+    const id = await verify(req.cookies['auth.loc'], envData.getData('jwtSecret'));
+
+    const user = await User.findOne({ _id: id }, { name: 1, _id: 0 });
+
+    if (type === 'in') {
+      const tradesIn = await Requests.find({ owner: user.name });
+      return res.send({ response: tradesIn });
+    } else if (type === 'out') {
+      const tradesOut = await Requests.find({ requester: user.name });
+
+      return res.send({ response: tradesOut });
+    }
+  } catch (err) {
+    res.send({ error: 'an error occured' });
+  }
+
+  res.send({ error: 'invalid request' });
 });
 
 export default router;

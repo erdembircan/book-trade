@@ -23,7 +23,7 @@ class BookPool extends React.Component {
   }
 
   requestBook() {
-    this.props.makeRequest(this.props.selectedBook.id);
+    this.props.makeRequest(this.props.selectedBook.id, this.props.selectedBook.title);
     this.handleModal(false)(null);
   }
 

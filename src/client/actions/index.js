@@ -176,8 +176,6 @@ export const getTrades = type => (dispatch) => {
         }
         sendNotification('invalid request')(dispatch);
         return null;
-
-        // return resp.data.response;
       }
       sendNotification('an error occured')(dispatch);
       return null;

@@ -24,6 +24,7 @@ class UserArea extends React.Component {
     };
 
     this.getPoolBooks = this.getPoolBooks.bind(this);
+    this.getTrades = this.getTrades.bind(this);
   }
   componentDidMount() {
     this.props.getUserBooks().then((resp) => {
@@ -44,6 +45,11 @@ class UserArea extends React.Component {
         this.setState({ bookpool: filtered });
       }
     });
+  }
+
+  getTrades() {
+    this.props.getTrades('in');
+    this.props.getTrades('out');
   }
 
   render() {
@@ -79,14 +85,18 @@ class UserArea extends React.Component {
           </Tab>
           <Tab
             label={
-              <Badge badgeStyle={{ backgroundColor: 'red' }} badgeContent={this.props.unchecked}>
-                Trades
-              </Badge>
+              this.props.unchecked > 0 ? (
+                <Badge badgeStyle={{ backgroundColor: 'red' }} badgeContent={this.props.unchecked}>
+                  Trades
+                </Badge>
+              ) : (
+                'Trades'
+              )
             }
           >
             <UserTab
               toolbarTitle="Trades"
-              toolbarButtons={<RaisedButton label="Refresh" primary onClick={this.getPoolBooks} />}
+              toolbarButtons={<RaisedButton label="Refresh" primary onClick={this.getTrades} />}
             >
               <Trades />
             </UserTab>

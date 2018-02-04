@@ -270,11 +270,20 @@ router.get('/trades', authCheck(), async (req, res) => {
   try {
     const id = await verify(req.cookies['auth.loc'], envData.getData('jwtSecret'));
 
-    const user = await User.findOne({ _id: id }, { name: 1, _id: 0 });
+    const user = await User.findOne({ _id: id });
 
     if (type === 'in') {
       const tradesIn = await Requests.find({ owner: user.name });
-      return res.send({ response: tradesIn });
+      const unChecked = tradesIn.length - user.checkedTrades.length;
+
+      if (unChecked > 0) {
+        const after = Array.from(new Set([...user.checkedTrades, ...tradesIn.map(trade => trade._id.toString())]));
+        user.checkedTrades = after;
+
+        await user.save();
+      }
+
+      return res.send({ response: tradesIn, unchecked: unChecked });
     } else if (type === 'out') {
       const tradesOut = await Requests.find({ requester: user.name });
 

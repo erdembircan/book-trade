@@ -152,11 +152,16 @@ export const makeRequest = (bookId, bookTitle) => (dispatch) => {
   return axios.post('/api/makerequest', content).then(({ data }) => {
     if (data.response) {
       sendNotification('book requested')(dispatch);
+      getTrades('out')(dispatch);
+      getTrades('in')(dispatch);
     } else {
       sendNotification('an error occured')(dispatch);
     }
   });
 };
+
+export const uncheckedCount = count => dispatch =>
+  dispatch({ type: types.setUncheckedCount, count });
 
 export const getTrades = type => (dispatch) => {
   const url = `/api/trades?type=${type}`;
@@ -164,7 +169,15 @@ export const getTrades = type => (dispatch) => {
   return axios({ method: 'get', url })
     .then((resp) => {
       if (resp.data && resp.data.response) {
-        return resp.data.response;
+        uncheckedCount(resp.data.unchecked)(dispatch);
+        if (type === 'in') return dispatch({ type: types.setTradesIn, trades: resp.data.response });
+        if (type === 'out') {
+          return dispatch({ type: types.setTradesOut, trades: resp.data.response });
+        }
+        sendNotification('invalid request')(dispatch);
+        return null;
+
+        // return resp.data.response;
       }
       sendNotification('an error occured')(dispatch);
       return null;

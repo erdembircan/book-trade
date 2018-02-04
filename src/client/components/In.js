@@ -12,7 +12,7 @@ const In = props => (
     <tbody>
       {props.requests &&
         props.requests.map(req => (
-          <tr key={req.bookId}>
+          <tr key={req._id}>
             <td>{req.requester}</td>
             <td>{req.bookTitle}</td>
             <td>Action</td>

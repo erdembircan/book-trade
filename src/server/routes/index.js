@@ -21,7 +21,6 @@ router.get('/logout', (req, res) => {
 router.get('/status', (req, res) => {
   verify(req.cookies['auth.loc'], envData.getData('jwtSecret'))
     .then((data) => {
-      console.log(`verified: ${data}`);
       res.redirect('/');
     })
     .catch(err => res.redirect('/'));

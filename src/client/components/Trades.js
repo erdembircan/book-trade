@@ -8,11 +8,6 @@ class Trades extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      inReq: [],
-      outReq: [],
-    };
-
     this.getTrades = this.getTrades.bind(this);
   }
 
@@ -22,10 +17,7 @@ class Trades extends React.Component {
   }
 
   getTrades(type) {
-    return this.props.getTrades(type).then((resp) => {
-      const key = type === 'in' ? 'inReq' : 'outReq';
-      this.setState({ [key]: resp });
-    });
+    return this.props.getTrades(type);
   }
 
   render() {
@@ -33,15 +25,20 @@ class Trades extends React.Component {
       <div className="bookHolder">
         <div className="trades">
           IN
-          <In requests={this.state.inReq} />
+          <In requests={this.props.inbox} />
         </div>
         <div className="trades">
           OUT <br />
-          <Out requests={this.state.outReq} />
+          <Out requests={this.props.outbox} />
         </div>
       </div>
     );
   }
 }
 
-export default connect(null, actions)(Trades);
+const mapStateToProps = state => ({
+  inbox: state.trades.inbox,
+  outbox: state.trades.outbox,
+});
+
+export default connect(mapStateToProps, actions)(Trades);

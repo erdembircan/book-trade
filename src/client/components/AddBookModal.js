@@ -34,7 +34,6 @@ class AddBookModal extends React.Component {
     e.preventDefault();
     this.props.queryBook(this.state.book.title).then((res) => {
       if (res && res.response) {
-        console.log(res.response);
         this.setState({ results: res.response });
       }
     });

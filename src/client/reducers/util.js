@@ -30,6 +30,15 @@ const notifications = (state = { message: '', open: false }, action) => {
   return { message: state.message, open: state.message !== '' };
 };
 
-export default combineReducers({ isFetching, errors, notifications });
+const unchecked = (state = 0, action) => {
+  if (action.type === types.setUncheckedCount && action.count) {
+    return action.count;
+  }
+  return state;
+};
+
+export default combineReducers({
+  isFetching, errors, notifications, unchecked,
+});
 
 export const getIsFetching = state => state.isFetching;

@@ -2,8 +2,11 @@ import { combineReducers } from 'redux';
 import util, * as allUtil from './util';
 import user from './user';
 import book from './book';
+import trades from './trades';
 
-const store = combineReducers({ util, user, book });
+const store = combineReducers({
+  util, user, book, trades,
+});
 
 export default store;
 

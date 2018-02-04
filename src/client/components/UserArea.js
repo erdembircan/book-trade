@@ -79,7 +79,7 @@ class UserArea extends React.Component {
           </Tab>
           <Tab
             label={
-              <Badge badgeStyle={{ backgroundColor: 'red' }} badgeContent={3}>
+              <Badge badgeStyle={{ backgroundColor: 'red' }} badgeContent={this.props.unchecked}>
                 Trades
               </Badge>
             }
@@ -98,6 +98,7 @@ class UserArea extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  unchecked: state.util.unchecked,
   userbooks: state.book.userbooks,
 });
 

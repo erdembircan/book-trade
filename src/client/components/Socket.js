@@ -1,14 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 class Socket extends React.Component {
   constructor(props) {
     super(props);
   }
+
   componentDidMount() {
-    const ws = new WebSocket('ws://localhost:3000');
+    const ws = new WebSocket(`ws://${window.location.host}`);
 
     ws.onmessage = (event) => {
-      console.log(event.data);
+      if (event.data) {
+        const o = JSON.parse(event.data);
+        if (o.data.error) {
+          this.props.sendNotification(o.data.error);
+        } else if (o.data.type) {
+          this.props[o.data.type]();
+        }
+      }
     };
   }
 
@@ -17,4 +27,4 @@ class Socket extends React.Component {
   }
 }
 
-export default Socket;
+export default connect(null, actions)(Socket);

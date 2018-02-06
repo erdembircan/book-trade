@@ -1,6 +1,7 @@
 import axios from 'axios';
 import types from '../constants';
 import { getIsFetching } from '../reducers';
+import { playAudio } from '../utils/audio';
 
 export const addUser = user => (dispatch, getState) => {
   if (getIsFetching(getState())) return;
@@ -162,6 +163,14 @@ export const makeRequest = (bookId, bookTitle) => (dispatch) => {
 
 export const uncheckedCount = count => dispatch =>
   dispatch({ type: types.setUncheckedCount, count });
+
+export const incrementUncheckedCount = () => (dispatch, getState) => {
+  const incrementedCount = getState().util.unchecked++;
+
+  playAudio('notify');
+
+  return dispatch({ type: types.setUncheckedCount, incrementedCount });
+};
 
 export const getTrades = type => (dispatch) => {
   const url = `/api/trades?type=${type}`;

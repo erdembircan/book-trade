@@ -58,7 +58,7 @@ class UserArea extends React.Component {
         <CardHeader
           title={this.props.user}
           // subtitle="here is your books..."
-          avatar="public/client/img/favicon.ico"
+          avatar="public/img/favicon.ico"
         />
         <Tabs>
           <Tab label="Your Books">

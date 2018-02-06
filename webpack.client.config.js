@@ -11,7 +11,7 @@ const plugins = [
     name: 'vendor',
     minChunks: Infinity,
   }),
-  new CopyWebpackPlugin([{ from: 'img', to: 'img' }]),
+  new CopyWebpackPlugin([{ from: 'img', to: 'img' }, { from: 'sounds', to: 'sounds' }]),
 ];
 
 if (process.env.NODE_ENV === 'analyse') {
@@ -42,7 +42,7 @@ const config = {
   output: {
     path: BUILD,
     filename: '[name].js',
-    publicPath: '/public/client/',
+    publicPath: '/public/',
   },
   module: {
     loaders: [

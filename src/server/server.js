@@ -1,4 +1,5 @@
 import express from 'express';
+import http from 'http';
 import envData from 'env-data';
 import compression from 'compression';
 import chalk from 'chalk';
@@ -51,11 +52,20 @@ export default class Server {
     this._app.use((err, req, res, next) => {
       res.status(500).send(`An error occured: ${err}`);
     });
+
+    this.httpServer = http.createServer(this._app);
   }
 
   listen() {
     const port = this._app.get('port');
     this._app.listen(port, () => {
+      console.log(`${chalk.bgBlue.bold('[SERVER]:')} 🌍  Server started on port: ${port}`);
+    });
+  }
+
+  httpListen() {
+    const port = this._app.get('port');
+    this.httpServer.listen(port, () => {
       console.log(`${chalk.bgBlue.bold('[SERVER]:')} 🌍  Server started on port: ${port}`);
     });
   }

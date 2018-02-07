@@ -262,6 +262,7 @@ router.post('/makerequest', authCheck(), async (req, res) => {
         { status: 200, data: { type: 'incrementUncheckedCount' } },
         owner.name,
       );
+
       ServerSocket.broadcast(
         { status: 200, data: { type: 'sendNotification', args: ['you got a trade request'] } },
         owner.name,
@@ -285,8 +286,8 @@ router.get('/trades', authCheck(), async (req, res) => {
 
     if (type === 'in') {
       const tradesIn = await Requests.find({ owner: user.name });
-      const unChecked = tradesIn.length - user.checkedTrades.length;
-
+      let unChecked = tradesIn.length - user.checkedTrades.length;
+      if (unChecked < 0) unChecked = 0;
       if (unChecked > 0) {
         const after = Array.from(new Set([...user.checkedTrades, ...tradesIn.map(trade => trade._id.toString())]));
         user.checkedTrades = after;

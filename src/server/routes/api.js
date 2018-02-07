@@ -9,6 +9,7 @@ import { sign, verify } from '../utils/jwtUtils';
 import authCheck from '../middleware/authCheck';
 import getReqAdress from '../utils/grReqFormat';
 import sData from '../sData';
+import ServerSocket from '../serverSocket';
 
 require('../models/user');
 require('../models/requests');
@@ -257,9 +258,19 @@ router.post('/makerequest', authCheck(), async (req, res) => {
 
       const sReq = await request.save();
 
+      ServerSocket.broadcast(
+        { status: 200, data: { type: 'incrementUncheckedCount' } },
+        owner.name,
+      );
+      ServerSocket.broadcast(
+        { status: 200, data: { type: 'sendNotification', args: ['you got a trade request'] } },
+        owner.name,
+      );
+
       res.send({ response: sReq });
     }
   } catch (err) {
+    console.log(err);
     res.send({ error: 'an error occured' });
   }
 });

@@ -16,10 +16,14 @@ class Socket extends React.Component {
         if (o.data.error) {
           this.props.sendNotification(o.data.error);
         } else if (o.data.type) {
-          this.props[o.data.type]();
+          this.props[o.data.type].call(null, o.data.args);
         }
       }
     };
+
+    window.addEventListener('beforeunload', (event) => {
+      ws.close();
+    });
   }
 
   render() {

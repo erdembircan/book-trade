@@ -1,5 +1,4 @@
 import envData from 'env-data';
-import WebSocket from 'ws';
 import minimist from 'minimist';
 import path from 'path';
 import Server from './server';
@@ -23,7 +22,7 @@ connect(envData.getData('mongoDb'));
 
 const server = new Server(process.env.PORT || parsedArgs.serverPort);
 
-const serverSocket = new ServerSocket(server.httpServer);
+ServerSocket.init(server.httpServer);
 
 server.httpListen(server._app.get('port'), () => {
   console.log(`server started on port ${server._app.get('port')}`);

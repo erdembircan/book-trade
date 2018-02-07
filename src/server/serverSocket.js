@@ -2,7 +2,6 @@ import WebSocket from 'ws';
 import cookie from 'cookie';
 import { verify } from './utils/jwtUtils';
 import envData from 'env-data';
-import { setInterval } from 'timers';
 
 const User = require('mongoose').model('User');
 

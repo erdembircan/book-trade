@@ -267,11 +267,72 @@ router.post('/makerequest', authCheck(), async (req, res) => {
         { status: 200, data: { type: 'sendNotification', args: ['you got a trade request'] } },
         owner.name,
       );
+      ServerSocket.broadcast(
+        {
+          status: 200,
+          data: {
+            type: 'getTrades',
+            args: 'in',
+          },
+        },
+        owner.name,
+      );
 
       res.send({ response: sReq });
     }
   } catch (err) {
     console.log(err);
+    res.send({ error: 'an error occured' });
+  }
+});
+
+router.post('/tradeaction', authCheck(), async (req, res) => {
+  const authLoc = req.cookies['auth.loc'];
+  const { action, id } = req.body;
+  try {
+    if (authLoc) {
+      const userId = await verify(authLoc, envData.getData('jwtSecret'));
+
+      const user = await User.findOne({ _id: userId });
+
+      const trade = await Requests.findOne({ _id: id });
+      if (trade.status !== 'waiting') {
+        throw new Error('already settled');
+      }
+      if (trade.owner === user.name) {
+        trade.status = action === 'accept' ? 'accepted' : 'refused';
+        await trade.save();
+
+        ServerSocket.broadcast({ data: { type: 'incrementUncheckedCount' } }, trade.requester);
+
+        const args =
+          action === 'accept' ? 'your trade request accepted' : 'your trade request refused';
+
+        ServerSocket.broadcast(
+          {
+            status: 200,
+            data: {
+              type: 'sendNotification',
+              args,
+            },
+          },
+          trade.requester,
+        );
+        ServerSocket.broadcast(
+          {
+            status: 200,
+            data: {
+              type: 'getTrades',
+              args: 'out',
+            },
+          },
+          trade.requester,
+        );
+
+        return res.send({ response: { message: 'done' } });
+      }
+    }
+  } catch (err) {
     res.send({ error: 'an error occured' });
   }
 });
@@ -287,7 +348,11 @@ router.get('/trades', authCheck(), async (req, res) => {
     if (type === 'in') {
       const tradesIn = await Requests.find({ owner: user.name });
       let unChecked = tradesIn.length - user.checkedTrades.length;
-      if (unChecked < 0) unChecked = 0;
+      if (unChecked < 0) {
+        unChecked = 0;
+        user.checkedTrades = [];
+        await user.save();
+      }
       if (unChecked > 0) {
         const after = Array.from(new Set([...user.checkedTrades, ...tradesIn.map(trade => trade._id.toString())]));
         user.checkedTrades = after;

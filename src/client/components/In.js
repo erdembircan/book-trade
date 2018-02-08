@@ -1,4 +1,7 @@
 import React from 'react';
+import IconButton from 'material-ui/IconButton';
+import ActionAccept from 'material-ui/svg-icons/action/check-circle';
+import ActionRefuse from 'material-ui/svg-icons/navigation/cancel';
 
 const In = props => (
   <table style={{ width: '100%' }}>
@@ -15,7 +18,20 @@ const In = props => (
           <tr key={req._id}>
             <td>{req.requester}</td>
             <td>{req.bookTitle}</td>
-            <td>Action</td>
+            <td>
+              {req.status === 'waiting' ? (
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                  <IconButton onClick={props.decline(req._id)}>
+                    <ActionRefuse color="red" />
+                  </IconButton>
+                  <IconButton onClick={props.accept(req._id)}>
+                    <ActionAccept color="green" />
+                  </IconButton>
+                </div>
+              ) : (
+                <div>{req.status}</div>
+              )}
+            </td>
           </tr>
         ))}
     </tbody>

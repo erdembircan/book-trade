@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import In from './In';
 import Out from './Out';
@@ -9,6 +10,12 @@ class Trades extends React.Component {
     super(props);
 
     this.getTrades = this.getTrades.bind(this);
+    this.tradeAction = accept => id => (event) => {
+      const content = `action=${accept}&id=${id}`;
+      return axios.post('/api/tradeaction', content).then((resp) => {
+        this.getTrades('in');
+      });
+    };
   }
 
   componentDidMount() {
@@ -25,7 +32,11 @@ class Trades extends React.Component {
       <div className="bookHolder">
         <div className="trades">
           IN
-          <In requests={this.props.inbox} />
+          <In
+            requests={this.props.inbox}
+            accept={this.tradeAction('accept')}
+            decline={this.tradeAction('refuse')}
+          />
         </div>
         <div className="trades">
           OUT <br />

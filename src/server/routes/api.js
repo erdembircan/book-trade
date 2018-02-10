@@ -392,11 +392,7 @@ router.get('/settings', authCheck(), async (req, res) => {
     return res.send({
       status: 200,
       response: {
-        user: {
-          fullname: user.fullname,
-          city: user.city,
-          state: user.state,
-        },
+        user,
       },
     });
   } catch (err) {

@@ -1,5 +1,7 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
+import Settings from 'material-ui/svg-icons/action/settings';
 import { connect } from 'react-redux';
 
 class NavBar extends React.Component {
@@ -40,6 +42,20 @@ class NavBar extends React.Component {
                 <a href="/logout">
                   <FlatButton
                     label="Log Out"
+                    style={{ height: '100%', marginLeft: '8px', marginRight: '8px' }}
+                    secondary
+                  />
+                </a>
+                <a href="/">
+                  <FlatButton
+                    label={<i className="fas fa-home" />}
+                    style={{ height: '100%', marginLeft: '8px', marginRight: '8px' }}
+                    secondary
+                  />
+                </a>
+                <a href="/settings">
+                  <FlatButton
+                    label={<i className="fas fa-cogs" />}
                     style={{ height: '100%', marginLeft: '8px', marginRight: '8px' }}
                     secondary
                   />

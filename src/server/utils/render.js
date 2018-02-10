@@ -5,7 +5,7 @@ export default (html, loadableState, windowGlobals) => `
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
             <title>Book Club</title>
-            <script src="https://use.fontawesome.com/aacb45c7f1.js"></script>
+            <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
         </head>
         <body>
             <div id="root">${html}</div>

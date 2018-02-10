@@ -8,6 +8,9 @@ const UserSchema = new mongoose.Schema(
     password: { type: String },
     books: Array,
     checkedTrades: Array,
+    fullname: { type: String, default: '' },
+    city: { type: String, default: '' },
+    state: { type: String, default: '' },
   },
   { collection: 'book_users' },
 );

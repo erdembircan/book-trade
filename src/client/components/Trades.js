@@ -31,7 +31,7 @@ class Trades extends React.Component {
     return (
       <div className="bookHolder">
         <div className="trades">
-          IN
+          <span style={{textDecoration:'underline', fontWeight: 'bold', margin: '10px'}}>IN</span>
           <In
             requests={this.props.inbox}
             accept={this.tradeAction('accept')}
@@ -39,7 +39,7 @@ class Trades extends React.Component {
           />
         </div>
         <div className="trades">
-          OUT <br />
+        <span style={{textDecoration:'underline', fontWeight: 'bold', margin: '10px'}}>OUT</span>
           <Out requests={this.props.outbox} />
         </div>
       </div>

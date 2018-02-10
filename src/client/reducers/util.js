@@ -25,6 +25,7 @@ const notifications = (state = { message: '', open: false }, action) => {
     return { message: action.message, open: action.message !== '' };
   } else if (action.type === types.closeNotification) {
     const temp = { open: false };
+    state.message = '';
     return { ...state, ...temp };
   }
   return { message: state.message, open: state.message !== '' };

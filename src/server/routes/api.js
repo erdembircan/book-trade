@@ -373,4 +373,53 @@ router.get('/trades', authCheck(), async (req, res) => {
   res.send({ error: 'invalid request' });
 });
 
+router.get('/settings', authCheck(), async (req, res) => {
+  const authLoc = req.cookies['auth.loc'];
+
+  try {
+    const id = await verify(authLoc, envData.getData('jwtSecret'));
+
+    const user = await User.findOne(
+      { _id: id },
+      {
+        fullname: 1,
+        city: 1,
+        state: 1,
+        _id: 0,
+      },
+    );
+
+    return res.send({
+      status: 200,
+      response: {
+        user: {
+          fullname: user.fullname,
+          city: user.city,
+          state: user.state,
+        },
+      },
+    });
+  } catch (err) {
+    return res.send({ error: 'an error occured' });
+  }
+});
+
+router.post('/updateuser', authCheck(), async (req, res) => {
+  const authLoc = req.cookies['auth.loc'];
+  try {
+    const { fullname, city, state } = req.body;
+    const id = await verify(authLoc, envData.getData('jwtSecret'));
+
+    const user = await User.findOne({ _id: id });
+
+    user.fullname = fullname;
+    user.city = city;
+    user.state = state;
+
+    user.save().then(saved => res.send({ status: 200, response: { message: 'updated' } }));
+  } catch (err) {
+    return res.send({ error: 'an error occured' });
+  }
+});
+
 export default router;

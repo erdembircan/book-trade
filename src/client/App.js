@@ -14,6 +14,7 @@ const App = props => (
         <Route path="/contact" component={Routes.Contact} />
         <Route path="/signup" component={Routes.SignUp} />
         <Route path="/login" component={Routes.LogIn} />
+        <Route path="/settings" component={Routes.Settings} />
       </Switch>
     </Body>
     <Notifications />

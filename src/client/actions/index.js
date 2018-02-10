@@ -152,12 +152,11 @@ export const makeRequest = (bookId, bookTitle) => (dispatch) => {
 
   return axios.post('/api/makerequest', content).then(({ data }) => {
     if (data.response) {
-      sendNotification('book requested')(dispatch);
       getTrades('out')(dispatch);
       getTrades('in')(dispatch);
-    } else {
-      sendNotification('an error occured')(dispatch);
+      return sendNotification('book requested')(dispatch);
     }
+    return sendNotification('an error occured')(dispatch);
   });
 };
 
@@ -192,5 +191,28 @@ export const getTrades = type => (dispatch) => {
     .catch((err) => {
       sendNotification('an error occured')(dispatch);
       return null;
+    });
+};
+
+export const updateUser = content => (dispatch, getState) => {
+  if (getIsFetching(getState())) return;
+
+  dispatch({ type: types.fetchRequest });
+
+  return axios
+    .post('/api/updateuser', content)
+    .then((resp) => {
+      if (resp && resp.data) {
+        const { data } = resp;
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        dispatch({ type: types.fetchSuccess });
+        return sendNotification('user info updated')(dispatch);
+      }
+    })
+    .catch((err) => {
+      dispatch({ type: types.fetchRequest });
+      return sendNotification('an error occured')(dispatch);
     });
 };

@@ -12,4 +12,4 @@ Manage a Book Trading Club Dynamic Web Application Project</h1>
 </blockquote>
 
 <h3>Site link:</h3>
- <a href="https://secure-escarpment-13976.herokuapp.com//">Book Club</a>
+ <a href="https://secure-escarpment-13976.herokuapp.com/">Book Club</a>

@@ -11,7 +11,8 @@
     "build-prod": "NODE_ENV=production concurrently -n \"server,client,nodemon\" -c \"magenta,cyan,green\" \"npm run build-server-dev\" \"npm run build-client-dev\" \"npm run serve\"",
     "serve": "nodemon build/server/server.js",
     "test": "jest --verbose",
-    "devServer": "webpack-dev-server --config webpack.client.config.js --open"
+    "devServer": "webpack-dev-server --config webpack.client.config.js --open",
+    "start": "node build/server/server.js"
   },
   "jest": {
     "testRegex": ".*.test.js$"

@@ -4,6 +4,7 @@ import * as Routes from './routes';
 import NavBar from './components/NavBar';
 import Body from './components/Body';
 import Notifications from './components/Notifications';
+import Footer from './components/Footer';
 
 const App = props => (
   <div>
@@ -18,6 +19,7 @@ const App = props => (
       </Switch>
     </Body>
     <Notifications />
+    <Footer />
   </div>
 );
 

@@ -10,6 +10,10 @@ class NavBar extends React.Component {
   }
 
   componentDidMount() {
+    if (!IntersectionObserver) {
+      console.error('your browser does not suppoer IntersectionObserver API');
+      return;
+    }
     const calculateThreshold = (numSteps) => {
       const threshold = [];
 

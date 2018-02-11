@@ -9,6 +9,47 @@ class NavBar extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    const calculateThreshold = (numSteps) => {
+      const threshold = [];
+
+      for (let i = 1; i <= numSteps; i++) {
+        const ratio = i / numSteps;
+        threshold.push(ratio);
+      }
+      threshold.push(0);
+      return threshold;
+    };
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: calculateThreshold(100),
+    };
+
+    const navBar = document.querySelector('.navWrapper');
+    const margin = navBar.offsetHeight;
+    const bodyWrapper = document.querySelector('.bodyWrapper');
+    const originalBodyMargin = getComputedStyle(bodyWrapper).marginTop;
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        const ratio = entry.intersectionRatio;
+        if (ratio === 0) {
+          navBar.classList.add('compact');
+          bodyWrapper.style.marginTop = `${margin + parseInt(originalBodyMargin, 10)}px`;
+        } else {
+          navBar.classList.remove('compact');
+          bodyWrapper.style.marginTop = originalBodyMargin;
+        }
+      });
+    }, observerOptions);
+
+    const observerTarget = document.querySelector('.navBackground');
+
+    observer.observe(observerTarget);
+  }
+
   render() {
     return (
       <div>

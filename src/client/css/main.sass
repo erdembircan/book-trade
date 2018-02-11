@@ -45,7 +45,7 @@ html, body
   align-items: center
   transition: all .3s ease-out
   .navLogo
-    max-width: 0
+    max-width: 0px
     color: $alternative-text-color
     font-family: $logo-font
     font-size: 2rem
@@ -56,10 +56,16 @@ html, body
     height: 100%
 
 .compact
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
   justify-content: space-between
+  z-index: 1000
+  box-shadow: 0px 5px 5px $shadow-color 
   .navLogo
     max-width: 800px
-    transform: translatex(0)
+    transform: translateX(0)
 
 
 .bodyWrapper

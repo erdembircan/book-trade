@@ -23,6 +23,7 @@ class Notifications extends React.Component {
   render() {
     return (
       <Snackbar
+        bodyStyle={{ backgroundColor: 'teal', color: 'coral' }}
         autoHideDuration={3000}
         open={this.state.firstTime ? false : this.props.open}
         message={this.props.message}

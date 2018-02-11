@@ -6,14 +6,8 @@ import envData from 'env-data';
 const User = require('mongoose').model('User');
 
 class ServerSocket {
-  constructor(server) {
+  constructor() {
     this._wss = null;
-    // this._wss = new WebSocket.Server({ server });
-    // this._wss.on('connection', this._connection);
-
-    // WebSocket.prototype.sendJson = function (obj) {
-    //   this.send(JSON.stringify(obj));
-    // };
   }
 
   init(server) {
@@ -25,6 +19,10 @@ class ServerSocket {
   }
 
   broadcast(data, recipients) {
+    if (!this._wss) {
+      return console.error('init WebSocket server first');
+    }
+
     if (!recipients.push) recipients = [recipients];
 
     this._wss.clients.forEach((client) => {

@@ -16,6 +16,7 @@ const App = props => (
         <Route path="/signup" component={Routes.SignUp} />
         <Route path="/login" component={Routes.LogIn} />
         <Route path="/settings" component={Routes.Settings} />
+        <Route path="*" component={Routes.NotFound} />
       </Switch>
     </Body>
     <Notifications />

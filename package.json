@@ -12,7 +12,7 @@
     "serve": "nodemon build/server/server.js",
     "test": "jest --verbose",
     "devServer": "webpack-dev-server --config webpack.client.config.js --open",
-    "start": "node build/server/server.js"
+    "start": "NODE_ENV=production node build/server/server.js"
   },
   "jest": {
     "testRegex": ".*.test.js$"

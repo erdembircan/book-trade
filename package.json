@@ -6,13 +6,16 @@
   "scripts": {
     "client-analyse": "NODE_ENV=analyse webpack --config webpack.client.config.js",
     "build-server-dev": "webpack --config webpack.server.config.js --watch --progress --colors",
+    "build-server-prod": "NODE_ENV=production webpack --config webpack.server.config.js",
     "build-client-dev": "webpack --config webpack.client.config.js --watch --progress --colors",
-    "build-dev": "NODE_ENV=development concurrently -n \"server,client,nodemon\" -c \"magenta,cyan,green\" \"npm run build-server-dev\" \"npm run build-client-dev\" \"npm run serve\"",
-    "build-prod": "NODE_ENV=production concurrently -n \"server,client,nodemon\" -c \"magenta,cyan,green\" \"npm run build-server-dev\" \"npm run build-client-dev\" \"npm run serve\"",
+    "build-client-prod": "NODE_ENV=production webpack --config webpack.client.config.js",
+    "build-dev":
+      "NODE_ENV=development concurrently -n \"server,client,nodemon\" -c \"magenta,cyan,green\" \"npm run build-server-dev\" \"npm run build-client-dev\" \"npm run serve\"",
     "serve": "nodemon build/server/server.js",
     "test": "jest --verbose",
     "devServer": "webpack-dev-server --config webpack.client.config.js --open",
-    "start": "NODE_ENV=production node build/server/server.js"
+    "start":
+      "npm run build-client-prod && npm run build-server-prod && NODE_ENV=production node ./build/server/server.js"
   },
   "jest": {
     "testRegex": ".*.test.js$"
@@ -53,9 +56,7 @@
     "universal-cookie": "^2.1.2",
     "validator": "^9.2.0",
     "ws": "^4.0.0",
-    "xml2js": "^0.4.19"
-  },
-  "devDependencies": {
+    "xml2js": "^0.4.19",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
